@@ -1,142 +1,115 @@
 "use client";
-import React from "react";
-import { FaInstagram, FaLinkedin, FaFacebook } from "react-icons/fa";
 
-const Footer = () => {
+import { FaInstagram, FaLinkedin, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
+
+export default function Footer(): React.ReactElement {
     return (
-        <footer className="bg-[#0d0c2d] text-white py-10 px-6 md:px-16">
-            <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 items-start">
+        <footer className="relative bg-[#0d0c2d] text-white pt-20">
 
-                {/* Explore Section */}
+            {/* TOP BROCHURE CTA */}
+            <div className="max-w-7xl mx-auto px-6">
+                <div className="relative overflow-hidden rounded-2xl border border-[#C7BEE6]/30 bg-gradient-to-r from-[#0d0c2d] to-[#062045] p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8 shadow-lg">
+
+                    <div>
+                        <h3 className="text-3xl md:text-4xl font-extrabold mb-2">
+                            Download the <span className="text-[#C7BEE6]">Official Brochure</span>
+                        </h3>
+                        <p className="text-white/70 max-w-xl">
+                            Get complete information about committees, schedules, accommodation,
+                            and registration details in our official brochure.
+                        </p>
+                    </div>
+
+                    <a
+                        href="/brochure.pdf"
+                        className="inline-flex items-center gap-3 bg-[#C7BEE6] text-[#0d0c2d] px-8 py-4 rounded-full font-semibold hover:scale-105 transition-transform"
+                    >
+                        Download Brochure
+                    </a>
+                </div>
+            </div>
+
+            {/* MAIN FOOTER */}
+            <div className="max-w-7xl mx-auto px-6 pt-20 pb-10 grid grid-cols-1 md:grid-cols-3 gap-12">
+
+                {/* BRAND */}
                 <div>
-                    <h3 className="text-lg font-semibold text-[#C7BEE6] mb-3">
-                        Explore
-                    </h3>
-                    <ul className="text-sm space-y-2">
-                        <li>
-                            <a href="/Committee" className="hover:text-[#C7BEE6] transition">
-                                Committees
-                            </a>
+                    <h4 className="text-2xl font-bold mb-3">KIET MUN</h4>
+                    <p className="text-white/70 leading-relaxed">
+                        Empowering the next generation of global leaders through diplomacy,
+                        debate, and collaboration.
+                    </p>
+
+                    <div className="flex gap-4 mt-6 text-xl">
+                        <a href="#" className="hover:text-[#C7BEE6] transition">
+                            <FaInstagram />
+                        </a>
+                        <a href="#" className="hover:text-[#C7BEE6] transition">
+                            <FaLinkedin />
+                        </a>
+                    </div>
+                </div>
+
+                {/* CONTACT */}
+                <div>
+                    <h4 className="text-xl font-semibold mb-4 text-[#C7BEE6]">
+                        Contact Info
+                    </h4>
+
+                    <ul className="space-y-3 text-white/80">
+                        <li className="flex items-center gap-3">
+                            <FaPhoneAlt className="text-[#C7BEE6]" />
+                            +91 8303220540
                         </li>
-                        <li>
-                            <a href="/Prizes" className="hover:text-[#C7BEE6] transition">
-                                Prizes
-                            </a>
+                        <li className="flex items-center gap-3">
+                            <FaPhoneAlt className="text-[#C7BEE6]" />
+                            +91 7017712755
                         </li>
-                        <li>
-                            <a href="/gallery" className="hover:text-[#C7BEE6] transition">
-                                Gallery
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/faqs" className="hover:text-[#C7BEE6] transition">
-                                FAQs
-                            </a>
+                        <li className="flex items-center gap-3">
+                            <FaEnvelope className="text-[#C7BEE6]" />
+                            kietmun@kiet.edu
                         </li>
                     </ul>
                 </div>
 
-                {/* Contact Information */}
+                {/* ADDRESS */}
                 <div>
-                    <h3 className="text-lg font-semibold text-[#C7BEE6] mb-3">
-                        Contact Us
-                    </h3>
-                    <p className="text-sm text-white/80">
-                        📍 KIET Group of Institutions, Ghaziabad
+                    <h4 className="text-xl font-semibold mb-4 text-[#C7BEE6]">
+                        Address
+                    </h4>
+
+                    <p className="flex gap-3 text-white/80 leading-relaxed">
+                        <FaMapMarkerAlt className="mt-1 text-[#C7BEE6]" />
+                        KIET Group of Institutions <br />
+                        Ghaziabad, Uttar Pradesh <br />
+                        India
                     </p>
-                    <p className="text-sm mt-2">
-                        📧{" "}
-                        <a
-                            href="mailto:kietmun@kiet.edu"
-                            className="hover:text-[#C7BEE6] transition"
-                        >
-                            kietmun@kiet.edu
-                        </a>
-                    </p>
-                    <p className="text-sm mt-2">
-                        📞{" "}
-                        <a
-                            href="tel:+918303220540"
-                            className="hover:text-[#C7BEE6] transition"
-                        >
-                            +91 8303220540
-                        </a>
-                    </p>
-                    <p className="text-sm mt-2">
-                        📞{" "}
-                        <a
-                            href="tel:+917017712755"
-                            className="hover:text-[#C7BEE6] transition"
-                        >
-                            +91 7017712755
-                        </a>
-                    </p>
+
+                    <div className="w-full h-52 md:h-48 rounded-xl overflow-hidden border border-[#C7BEE6]/40 shadow-sm">
+                    <iframe
+                        title="KIET Group of Institutions Location"
+                        src="https://www.google.com/maps?q=KIET%20Group%20of%20Institutions%20Ghaziabad&output=embed"
+                        className="w-full h-full"
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                    />
                 </div>
-
-                {/* Socials */}
-                <div className="flex flex-col items-center md:items-end">
-                    <h3 className="text-lg font-semibold text-[#C7BEE6] mb-3">
-                        Follow Us
-                    </h3>
-                    <div className="flex space-x-4 text-2xl text-white/90">
-                        <a
-                            href="https://www.instagram.com/kiet_mun"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:text-[#C7BEE6] transition"
-                        >
-                            <FaInstagram />
-                        </a>
-                        <a
-                            href="https://www.linkedin.com/company/kiet-mun-society/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:text-[#C7BEE6] transition"
-                        >
-                            <FaLinkedin />
-                        </a>
-                        <a
-                            href="https://www.facebook.com/share/1Y6C8EN5pW/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:text-[#C7BEE6] transition"
-                        >
-                            <FaFacebook />
-                        </a>
-                    </div>
-
-                    {/* Register Button */}
-                    <a href="/register" className="mt-6">
-                        <button className="
-              bg-[#C7BEE6] text-[#0d0c2d]
-              px-6 py-2.5 rounded-lg
-              text-sm font-semibold
-              hover:bg-[#b9aedf]
-              transition
-            ">
-                            Register
-                        </button>
-                    </a>
                 </div>
             </div>
 
-            {/* Divider */}
-            <div className="mt-10 border-t border-[#C7BEE6]/30 pt-6 text-center">
-                <p className="text-xs text-white/60">
-                    © 2025 KIET MUN. All Rights Reserved.
-                </p>
-                <p className="text-sm text-white/70 mt-2">
-                    Made with ❤️ by
-                    <a
-                        href="/Team"
-                        className="text-[#C7BEE6] hover:underline ml-1"
-                    >
+            {/* DIVIDER */}
+            <div className="border-t border-white/10 mt-6" />
+
+            {/* BOTTOM BAR */}
+            <div className="max-w-7xl mx-auto px-6 py-6 text-sm text-white/60 flex flex-col md:flex-row items-center justify-between gap-4">
+                <span>© 2026 KIET MUN. All rights reserved.</span>
+                <span>
+                    Designed with ❤️ by{" "}
+                    <a href="/team" className="text-[#C7BEE6] hover:underline">
                         KIET MUN Tech Team
                     </a>
-                </p>
+                </span>
             </div>
         </footer>
     );
-};
-
-export default Footer;
+}

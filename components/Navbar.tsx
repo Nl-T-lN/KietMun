@@ -20,6 +20,11 @@ export default function Navbar() {
                     Committees
                 </li>
 
+                <li
+                    onClick={() => router.push("/secretariat")}
+                    className="cursor-pointer"
+                >Secretariat</li>
+
                 <li 
                     onClick={() => router.push("/prize")}
                     className="cursor-pointer">Prizes</li>

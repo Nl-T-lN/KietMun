@@ -110,9 +110,10 @@ export default function Register(): React.ReactElement {
 
     const label = "block mb-2 font-medium text-[#0d0c2d]";
     const input = (err?: boolean) =>
-        `w-full px-4 py-3 rounded-md border focus:outline-none focus:ring-2 ${err
-            ? "border-red-500 focus:ring-red-500"
-            : "border-[#0d0c2d]/30 focus:ring-[#C7BEE6]"
+        `w-full px-4 py-4 rounded-md border placeholder:text-[#0d0c2d]/50 focus:outline-none focus:ring-2 ${
+            err
+                ? "border-red-500 focus:ring-red-500"
+                : "border-[#0d0c2d]/30 focus:ring-[#C7BEE6]"
         }`;
 
     /* ================= UI ================= */
@@ -126,8 +127,7 @@ export default function Register(): React.ReactElement {
                 </h1>
 
                 <p className="text-center text-[#0d0c2d]/70 mb-10">
-                    External Delegate Fee: ₹1600 <br />
-                    Internal Delegate Fee: ₹500
+                    External Delegate Fee: ₹1600
                 </p>
 
                 <form
@@ -138,7 +138,11 @@ export default function Register(): React.ReactElement {
                     {/* BASIC INFO */}
                     <div>
                         <label className={label}>Name</label>
-                        <input {...register("name", { required: true })} className={input(!!errors.name)} />
+                        <input
+                            placeholder="Enter your full name"
+                            {...register("name", { required: true })}
+                            className={input(!!errors.name)}
+                        />
                     </div>
 
                     <div>
@@ -154,17 +158,30 @@ export default function Register(): React.ReactElement {
 
                     <div>
                         <label className={label}>Phone</label>
-                        <input {...register("phone", { required: true })} className={input(!!errors.phone)} />
+                        <input
+                            placeholder="Enter phone number"
+                            {...register("phone", { required: true })}
+                            className={input(!!errors.phone)}
+                        />
                     </div>
 
                     <div>
                         <label className={label}>Institute</label>
-                        <input {...register("institute", { required: true })} className={input()} />
+                        <input
+                            placeholder="Institute name"
+                            {...register("institute", { required: true })}
+                            className={input()}
+                        />
                     </div>
 
                     <div>
                         <label className={label}>Email</label>
-                        <input type="email" {...register("email", { required: true })} className={input()} />
+                        <input
+                            type="email"
+                            placeholder="Email address"
+                            {...register("email", { required: true })}
+                            className={input()}
+                        />
                     </div>
 
                     <div>
@@ -197,7 +214,11 @@ export default function Register(): React.ReactElement {
                     {["portfolio1_1", "portfolio1_2", "portfolio1_3"].map((f) => (
                         <div key={f}>
                             <label className={label}>Portfolio Preference</label>
-                            <input {...register(f as keyof RegisterFormValues, { required: true })} className={input()} />
+                            <input
+                                placeholder="Portfolio choice"
+                                {...register(f as keyof RegisterFormValues, { required: true })}
+                                className={input()}
+                            />
                         </div>
                     ))}
 
@@ -216,24 +237,40 @@ export default function Register(): React.ReactElement {
                     {["portfolio2_1", "portfolio2_2", "portfolio2_3"].map((f) => (
                         <div key={f}>
                             <label className={label}>Portfolio Preference</label>
-                            <input {...register(f as keyof RegisterFormValues, { required: true })} className={input()} />
+                            <input
+                                placeholder="Portfolio choice"
+                                {...register(f as keyof RegisterFormValues, { required: true })}
+                                className={input()}
+                            />
                         </div>
                     ))}
 
                     {/* EXPERIENCE */}
                     <div>
                         <label className={label}>Prior MUN Experience</label>
-                        <input {...register("experience", { required: true })} className={input()} />
+                        <input
+                            placeholder="Briefly mention your experience"
+                            {...register("experience", { required: true })}
+                            className={input()}
+                        />
                     </div>
 
                     <div>
                         <label className={label}>Referral ID</label>
-                        <input {...register("referral")} className={input()} />
+                        <input
+                            placeholder="Optional"
+                            {...register("referral")}
+                            className={input()}
+                        />
                     </div>
 
                     <div className="md:col-span-2">
                         <label className={label}>Transaction Number</label>
-                        <input {...register("transaction", { required: true })} className={input()} />
+                        <input
+                            placeholder="Transaction reference"
+                            {...register("transaction", { required: true })}
+                            className={input()}
+                        />
                     </div>
 
                     {/* FILE */}
@@ -249,8 +286,13 @@ export default function Register(): React.ReactElement {
 
                     {/* STATUS */}
                     {status && (
-                        <div className={`md:col-span-2 text-center font-medium ${status.type === "success" ? "text-green-600" : "text-red-600"
-                            }`}>
+                        <div
+                            className={`md:col-span-2 text-center font-medium ${
+                                status.type === "success"
+                                    ? "text-green-600"
+                                    : "text-red-600"
+                            }`}
+                        >
                             {status.message}
                         </div>
                     )}
@@ -260,7 +302,7 @@ export default function Register(): React.ReactElement {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="bg-[#0d0c2d] text-white px-10 py-3 rounded-lg hover:bg-[#0d0c2d]/90 transition disabled:opacity-60"
+                            className="bg-[#0d0c2d] text-white px-10 py-4 rounded-lg hover:bg-[#0d0c2d]/90 transition disabled:opacity-60"
                         >
                             {loading ? "Submitting..." : "Submit Registration"}
                         </button>
