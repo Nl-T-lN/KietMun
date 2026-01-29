@@ -85,8 +85,8 @@ const committees: CommitteeItem[] = [
         animation: fadeInRight,
     },
     {
-        name: "UNEP",
-        img: "/UNEP.jpeg",
+        name: "UNCSW",
+        img: "/UNCSW.jpeg",
         agenda:
             "Deliberation on reducing greenhouse gas emissions and transitioning to low-carbon economies.",
         animation: fadeInLeft,

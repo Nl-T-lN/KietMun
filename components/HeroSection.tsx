@@ -8,7 +8,8 @@ export default function HeroContent() {
         <div>
             
             <div className="relative min-h-screen overflow-hidden">
-                <div className="mt-24 flex flex-col items-center text-center text-white">
+                <div className="mt-30 md:mt-40 flex flex-col items-center text-center text-white">
+
                 <span className="mb-3 text-sm tracking-[0.4em] text-[#C7BEE6]">
                     KIET
                 </span>
