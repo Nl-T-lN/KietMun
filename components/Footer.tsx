@@ -83,7 +83,7 @@ export default function Footer(): React.ReactElement {
                 <span>© 2026 KIET MUN</span>
                 <span>
                     Designed by{" "}
-                    <a href="/team" className="text-[#C7BEE6] hover:underline">
+                    <a href="/techteam" className="text-[#C7BEE6] hover:underline">
                         KIET MUN Tech Team
                     </a>
                 </span>
