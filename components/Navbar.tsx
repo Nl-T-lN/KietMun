@@ -1,44 +1,189 @@
 "use client";
-import { useRouter } from "next/navigation";
 
-export default function Navbar() {
+import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { motion } from "framer-motion";
+import { FiMenu, FiX } from "react-icons/fi";
+
+interface NavItem {
+    name: string;
+    path: string;
+}
+
+export default function Navbar(): React.ReactElement {
     const router = useRouter();
+    const pathname = usePathname();
+    const [open, setOpen] = useState(false);
+
+    const navItems: NavItem[] = [
+        { name: "Home", path: "/" },
+        { name: "Committees", path: "/Committee" },
+        { name: "Secretariat", path: "/secretariat" },
+        { name: "Prizes", path: "/prize" },
+        { name: "Gallery", path: "/gallery" },
+        { name: "FAQs", path: "/faqs" },
+    ];
+
+    /* Lock background scroll on mobile drawer open */
+    useEffect(() => {
+        document.body.style.overflow = open ? "hidden" : "";
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [open]);
 
     return (
-        <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur flex items-center justify-between px-10 py-6 text-white bg-[#0d0c2d]">
-            <div className="font-bold tracking-widest">KIET</div>
+        <>
+            {/* EDGE DRAG OPEN ZONE (RIGHT SIDE, MOBILE ONLY) */}
+            <div
+                onClick={() => setOpen(true)}
+                className="fixed top-0 right-0 h-full w-3 z-40 md:hidden"
+            />
 
-            <ul className="hidden md:flex gap-8 text-sm tracking-wide">
-                <li 
+            {/* NAVBAR (SOLID ALWAYS, MOBILE SAFE) */}
+            <nav
+                className="
+                    fixed top-0 left-0 w-full z-50
+                    flex items-center justify-between
+                    px-6 md:px-10 py-5
+                    bg-[#0d0c2d]
+                    text-white
+                    border-b border-white/10
+                    md:backdrop-blur
+                "
+            >
+                {/* Logo */}
+                <div
                     onClick={() => router.push("/")}
-                    className="cursor-pointer">Home</li>
-
-                <li
-                    onClick={() => router.push("/Committee")}
-                    className="cursor-pointer"
+                    className="font-bold tracking-widest cursor-pointer"
                 >
-                    Committees
-                </li>
+                    KIET
+                </div>
 
-                <li
-                    onClick={() => router.push("/secretariat")}
-                    className="cursor-pointer"
-                >Secretariat</li>
+                {/* Desktop Links */}
+                <ul className="hidden md:flex gap-8 text-sm tracking-wide">
+                    {navItems.map((item) => (
+                        <li
+                            key={item.name}
+                            onClick={() => router.push(item.path)}
+                            className={`cursor-pointer transition ${
+                                pathname === item.path
+                                    ? "text-[#C7BEE6]"
+                                    : "text-white/80 hover:text-white"
+                            }`}
+                        >
+                            {item.name}
+                        </li>
+                    ))}
+                </ul>
 
-                <li 
-                    onClick={() => router.push("/prize")}
-                    className="cursor-pointer">Prizes</li>
-                <li 
-                    onClick={() => router.push("/gallery")}
-                    className="cursor-pointer">Gallery</li>
-                <li    
-                    onClick={() => router.push("/faqs")}
-                    className="cursor-pointer">FAQs</li>
-            </ul>
+                {/* Desktop CTA */}
+                <button
+                    onClick={() => router.push("/register")}
+                    className="hidden md:block rounded-md bg-white px-5 py-2 text-sm font-semibold text-[#0d0c2d]"
+                >
+                    Register
+                </button>
 
-            <button onClick={()=>{router.push("/register")}} className="rounded-md bg-white px-5 py-2 text-sm font-semibold text-[#0d0c2d]">
-                Register
-            </button>
-        </nav>
+                {/* Mobile Hamburger */}
+                <button
+                    onClick={() => setOpen(true)}
+                    className="md:hidden text-white"
+                    aria-label="Open Menu"
+                >
+                    <FiMenu size={26} />
+                </button>
+            </nav>
+
+            {/* BACKDROP */}
+            {open && (
+                <div
+                    onClick={() => setOpen(false)}
+                    className="fixed inset-0 bg-black/50 z-40 md:hidden"
+                />
+            )}
+
+            {/* MOBILE DRAWER (RIGHT → LEFT) */}
+            <motion.aside
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.15}
+                onDragEnd={(_, info) => {
+                    if (info.offset.x > 80) {
+                        setOpen(false);
+                    }
+                }}
+                initial={{ x: "100%" }}
+                animate={{ x: open ? 0 : "100%" }}
+                transition={{ type: "tween", duration: 0.3 }}
+                className="
+                    fixed top-0 right-0
+                    h-full w-[280px]
+                    bg-white z-50
+                    md:hidden
+                    flex flex-col
+                "
+            >
+                {/* Drawer Header */}
+                <div className="flex items-center justify-between px-6 h-16 border-b border-[#C7BEE6]/40">
+                    <span className="font-bold tracking-widest text-[#0d0c2d]">
+                        KIET
+                    </span>
+                    <button
+                        onClick={() => setOpen(false)}
+                        className="text-[#0d0c2d]"
+                        aria-label="Close Menu"
+                    >
+                        <FiX size={24} />
+                    </button>
+                </div>
+
+                {/* Animated Links */}
+                <motion.ul
+                    initial="hidden"
+                    animate={open ? "visible" : "hidden"}
+                    variants={{
+                        visible: { transition: { staggerChildren: 0.08 } },
+                        hidden: {},
+                    }}
+                    className="flex flex-col px-6 py-8 gap-6 flex-1"
+                >
+                    {navItems.map((item) => (
+                        <motion.li
+                            key={item.name}
+                            variants={{
+                                hidden: { opacity: 0, x: 20 },
+                                visible: { opacity: 1, x: 0 },
+                            }}
+                            transition={{ duration: 0.3 }}
+                            onClick={() => {
+                                router.push(item.path);
+                                setOpen(false);
+                            }}
+                            className={`cursor-pointer text-lg font-medium ${
+                                pathname === item.path
+                                    ? "text-[#0d0c2d]"
+                                    : "text-[#0d0c2d]/70"
+                            }`}
+                        >
+                            {item.name}
+                        </motion.li>
+                    ))}
+                </motion.ul>
+
+                {/* Mobile CTA */}
+                <div className="px-6 pb-8">
+                    <button
+                        onClick={() => {
+                            router.push("/register");
+                            setOpen(false);
+                        }}
+                        className="w-full rounded-md bg-[#0d0c2d] py-3 text-sm font-semibold text-white"
+                    >
+                        Register
+                    </button>
+                </div>
+            </motion.aside>
+        </>
     );
 }
