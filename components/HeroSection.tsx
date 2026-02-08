@@ -52,7 +52,7 @@ export default function HeroContent(): React.ReactElement {
                     items-center
                     text-center
                     px-4 sm:px-10
-                    pt-20 sm:pt-24 md:pt-28 lg:pt-32
+                    pt-24 sm:pt-24 md:pt-28 lg:pt-32
                     text-white
                 "
             >
@@ -134,7 +134,7 @@ export default function HeroContent(): React.ReactElement {
                     -translate-x-1/2
                     z-20
                     w-[95%] max-w-[1100px]
-                    h-[220px]
+                    h-[420px]
                     sm:h-[280px]
                     md:h-[950px]
                     lg:h-[700px]

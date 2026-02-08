@@ -134,14 +134,7 @@ export default function Navbar(): React.ReactElement {
                 "
             >
                 {/* Drawer Header */}
-                <div className="flex items-center justify-between px-6 h-16 border-b border-[#C7BEE6]/40">
-                   <Image
-    src="/logo.png"
-    alt="KIET Logo"
-    width={36}
-    height={36}
-    className="object-contain"
-  />
+                <div className="flex items-center justify-end px-6 h-16 border-b border-[#C7BEE6]/40">
                     <button
                         onClick={() => setOpen(false)}
                         className="text-[#0d0c2d]"
