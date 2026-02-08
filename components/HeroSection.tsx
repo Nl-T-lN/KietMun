@@ -108,7 +108,7 @@ export default function HeroContent(): React.ReactElement {
                     transition: { duration: 0.6, delay: 0.4 }} as any)}
                     className="mt-2 sm:mt-3 text-[10px] sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium"
                 >
-                    DEBATE &nbsp;•&nbsp; DIPLOMACY &nbsp;•&nbsp; DEVELOPMENT
+                    DEBATE &nbsp;•&nbsp; DISCUSSION &nbsp;•&nbsp; DIPLOMACY
                 </motion.p>
 
                 {/* Year */}
