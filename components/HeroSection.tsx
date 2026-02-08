@@ -51,17 +51,16 @@ export default function HeroContent(): React.ReactElement {
                     flex flex-col
                     items-center
                     text-center
-                    px-6 sm:px-10
-                    /* 1. Reduced Top Padding further to pull everything UP away from building */
-                    pt-12 md:pt-16
+                    px-4 sm:px-10
+                    pt-20 sm:pt-24 md:pt-28 lg:pt-32
                     text-white
                 "
             >
                 {/* KIET + Logo side by side */}
-                <div className="flex flex-row items-center justify-center gap-3 sm:gap-5 md:gap-6 mb-[5px]">
+                <div className="flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-6 mb-[5px]">
                     
-                    {/* 2. SIGNIFICANTLY REDUCED LOGO SIZE */ }
-                    <div className="relative w-[70px] h-[70px] sm:w-[90px] sm:h-[90px] md:w-[100px] md:h-[100px] lg:w-[100px] lg:h-[150px] flex-shrink-0">
+                    {/* Logo - Smaller on mobile */}
+                    <div className="relative w-[45px] h-[45px] sm:w-[70px] sm:h-[70px] md:w-[100px] md:h-[100px] lg:w-[110px] lg:h-[110px] flex-shrink-0">
                         <Image
                             src="/log.png"
                             alt="KIET MUN Logo"
@@ -71,13 +70,13 @@ export default function HeroContent(): React.ReactElement {
                         />
                     </div>
 
-                    {/* 3. REDUCED KIET TEXT SIZE to match smaller logo */ }
+                    {/* KIET text - Smaller on mobile */}
                     <motion.span
                         {...({variants: fadeInUp,
                         initial: "hidden",
                         animate: "visible",
                         transition: { duration: 0.6, ease: "easeOut" }} as any)}
-                        className="text-2xl sm:text-4xl md:text-5xl tracking-[0.3em] text-[#c7bee6] font-bold uppercase"
+                        className="text-xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[0.25em] sm:tracking-[0.3em] text-[#c7bee6] font-bold uppercase"
                     >
                         KIET
                     </motion.span>
@@ -85,7 +84,7 @@ export default function HeroContent(): React.ReactElement {
 
                 {/* Title Container */}
                 <div className="relative flex flex-row items-center justify-center">
-                    {/* Main Title */}
+                    {/* Main Title - Better mobile sizing */}
                     <motion.h1
                         {...({variants: fadeInUp,
                         initial: "hidden",
@@ -95,8 +94,7 @@ export default function HeroContent(): React.ReactElement {
                             delay: 0.2,
                             ease: "easeOut",
                         }} as any)}
-                        /* Kept title large for impact, but it sits higher now due to changes above */
-                        className="relative z-10 text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-wide leading-none text-white drop-shadow-lg"
+                        className="relative z-10 text-xl sm:text-3xl md:text-5xl lg:text-7xl font-extrabold tracking-tight sm:tracking-wide leading-tight text-white drop-shadow-lg"
                     >
                         MODEL UNITED NATIONS 8.0
                     </motion.h1>
@@ -108,7 +106,7 @@ export default function HeroContent(): React.ReactElement {
                     initial: "hidden",
                     animate: "visible",
                     transition: { duration: 0.6, delay: 0.4 }} as any)}
-                    className="mt-3 sm:mt-4 text-xs sm:text-sm tracking-[0.3em] text-[#c7bee6]/80 font-medium"
+                    className="mt-2 sm:mt-3 text-[10px] sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium"
                 >
                     DEBATE &nbsp;•&nbsp; DIPLOMACY &nbsp;•&nbsp; DEVELOPMENT
                 </motion.p>
@@ -123,7 +121,7 @@ export default function HeroContent(): React.ReactElement {
                         delay: 0.5,
                         ease: "easeOut",
                     }} as any)}
-                    className="mt-3 sm:mt-4 text-5xl sm:text-6xl md:text-8xl font-bold text-[#c7bee6] leading-none drop-shadow-md"
+                    className="mt-2 sm:mt-3 md:mt-4 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-[#c7bee6] leading-none drop-shadow-md"
                 >
                     2026
                 </motion.h2>
