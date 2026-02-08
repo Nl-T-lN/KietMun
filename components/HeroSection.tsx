@@ -76,7 +76,7 @@ export default function HeroContent(): React.ReactElement {
                         initial: "hidden",
                         animate: "visible",
                         transition: { duration: 0.6, ease: "easeOut" }} as any)}
-                        className="text-xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[0.25em] sm:tracking-[0.3em] text-[#c7bee6] font-bold uppercase"
+                        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[0.25em] sm:tracking-[0.3em] text-[#c7bee6] font-bold uppercase"
                     >
                         KIET
                     </motion.span>
@@ -94,7 +94,7 @@ export default function HeroContent(): React.ReactElement {
                             delay: 0.2,
                             ease: "easeOut",
                         }} as any)}
-                        className="relative z-10 text-xl sm:text-3xl md:text-5xl lg:text-7xl font-extrabold tracking-tight sm:tracking-wide leading-tight text-white drop-shadow-lg"
+                        className="relative z-10 text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-extrabold tracking-tight sm:tracking-wide leading-tight text-white drop-shadow-lg"
                     >
                         MODEL UNITED NATIONS 8.0
                     </motion.h1>
@@ -106,7 +106,7 @@ export default function HeroContent(): React.ReactElement {
                     initial: "hidden",
                     animate: "visible",
                     transition: { duration: 0.6, delay: 0.4 }} as any)}
-                    className="mt-2 sm:mt-3 text-[10px] sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium"
+                    className="mt-2 sm:mt-3 text-xs sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium"
                 >
                     DEBATE &nbsp;•&nbsp; DISCUSSION &nbsp;•&nbsp; DIPLOMACY
                 </motion.p>
@@ -121,7 +121,7 @@ export default function HeroContent(): React.ReactElement {
                         delay: 0.5,
                         ease: "easeOut",
                     }} as any)}
-                    className="mt-2 sm:mt-3 md:mt-4 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-[#c7bee6] leading-none drop-shadow-md"
+                    className="mt-2 sm:mt-3 md:mt-4 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-[#c7bee6] leading-none drop-shadow-md"
                 >
                     2026
                 </motion.h2>
