@@ -7,6 +7,7 @@ import HeroContent from "@/components/HeroSection";
 import CountdownTimer from "@/components/CountDownTimer";
 import LetterFromSecretariat from "@/components/LetterToSecretarait";
 import CommitteesPage from "@/components/CommitteePage";
+import StatsSection from "@/components/StatsSection";
 import Footer from "@/components/Footer";
 
 const sectionVariants: Variants = {
@@ -74,6 +75,11 @@ export default function Home(): React.ReactElement {
                 } as any)}
             >
                 <CommitteesPage />
+            </motion.div>
+
+            {/* STATS - BY THE NUMBERS */}
+            <motion.div {...({initial: "hidden", whileInView: "visible", viewport: { once: true }, variants: sectionVariants} as any)}>
+                <StatsSection />
             </motion.div>
         </>
     );
