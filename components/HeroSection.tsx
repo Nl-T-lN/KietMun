@@ -19,7 +19,7 @@ export default function HeroContent(): React.ReactElement {
     };
 
     return (
-        <section className="relative min-h-screen overflow-hidden">
+        <section className="relative min-h-[100dvh] sm:min-h-screen overflow-hidden">
             {/* Navbar */}
             <Navbar />
 
@@ -47,7 +47,7 @@ export default function HeroContent(): React.ReactElement {
             <div
                 className="
                     relative z-10
-                    min-h-screen
+                    min-h-[100dvh] sm:min-h-screen
                     flex flex-col
                     items-center
                     text-center
