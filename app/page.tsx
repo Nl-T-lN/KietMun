@@ -7,6 +7,7 @@ import HeroContent from "@/components/HeroSection";
 import CountdownTimer from "@/components/CountDownTimer";
 import LetterFromSecretariat from "@/components/LetterToSecretarait";
 import CommitteesPage from "@/components/CommitteePage";
+import StatsSection from "@/components/StatsSection";
 import Footer from "@/components/Footer";
 
 const sectionVariants: Variants = {
@@ -34,17 +35,19 @@ export default function Home(): React.ReactElement {
     return (
         <>
             {/* HERO SECTION */}
-            <motion.div initial="hidden" animate="visible" variants={sectionVariants}>
+            <motion.div {...({initial: "hidden", whileInView: "visible", viewport: { once: true }, variants: sectionVariants} as any)}>
                 <HeroContent />
             </motion.div>
 
             {/* COUNTDOWN */}
             {showTimer && (
                 <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={sectionVariants}
+                    {...({
+                        initial: "hidden",
+                        whileInView: "visible",
+                        viewport: { once: true },
+                        variants: sectionVariants
+                    } as any)}
                 >
                     <CountdownTimer />
                 </motion.div>
@@ -52,22 +55,31 @@ export default function Home(): React.ReactElement {
 
             {/* LETTER FROM SECRETARIAT */}
             <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={sectionVariants}
+                {...({
+                    initial: "hidden",
+                    whileInView: "visible",
+                    viewport: { once: true },
+                    variants: sectionVariants
+                } as any)}
             >
                 <LetterFromSecretariat />
             </motion.div>
 
             {/* COMMITTEES */}
             <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={sectionVariants}
+                {...({
+                    initial: "hidden",
+                    whileInView: "visible",
+                    viewport: { once: true },
+                    variants: sectionVariants
+                } as any)}
             >
                 <CommitteesPage />
+            </motion.div>
+
+            {/* STATS - BY THE NUMBERS */}
+            <motion.div {...({initial: "hidden", whileInView: "visible", viewport: { once: true }, variants: sectionVariants} as any)}>
+                <StatsSection />
             </motion.div>
         </>
     );

@@ -1,10 +1,23 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
+import { useRouter } from "next/navigation";
 import Navbar from "./Navbar";
 
 export default function HeroContent(): React.ReactElement {
+    const router = useRouter();
+
+    const fadeInUp: Variants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 }
+    };
+
+    const fadeIn: Variants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 }
+    };
+
     return (
         <section className="relative min-h-screen overflow-hidden">
             {/* Navbar */}
@@ -26,6 +39,10 @@ export default function HeroContent(): React.ReactElement {
                 className="object-cover -z-30"
             />
 
+            {/* Gradient overlays for depth */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0d0c2d]/60 via-transparent to-[#0d0c2d]/80 -z-10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0d0c2d]/30 to-transparent -z-10 pointer-events-none" />
+
             {/* Hero Content */}
             <div
                 className="
@@ -34,153 +51,89 @@ export default function HeroContent(): React.ReactElement {
                     flex flex-col
                     items-center
                     text-center
-                    px-6
-                    pt-24 md:pt-25
+                    px-4 sm:px-10
+                    pt-20 sm:pt-24 md:pt-28 lg:pt-32
                     text-white
                 "
             >
-                <span className="mb-3 text-xs sm:text-sm tracking-[0.4em] text-[#c7bee6] font-bold">
-                    KIET
-                </span>
-
-                <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-wide leading-tight">
-                    MODEL UNITED NATION 8.0
-                </h1>
-
-                {/* Seamless Marquee Text Container - No Gap */}
-                <div className="mt-4 w-[100px] sm:w-[400px] md:w-[300px] overflow-hidden relative mx-auto">
-                    <div className="flex">
-                        <motion.p
-                            animate={{
-                                x: ["0%", "-100%"],
-                            }}
-                            transition={{
-                                duration: 10,
-                                repeat: Infinity,
-                                ease: "linear",
-                            }}
-                            className=" pr-3 ext-xs sm:text-sm tracking-[0.3em] text-[#c7bee6] whitespace-nowrap inline-block"
-                        >
-                            DEBATE.DIPLOMACY.DEVELOPMENT
-                        </motion.p>
-                        <motion.p
-                            animate={{
-                                x: ["0%", "-100%"],
-                            }}
-                            transition={{
-                                duration: 10,
-                                repeat: Infinity,
-                                ease: "linear",
-                            }}
-                            className="text-xs sm:text-sm tracking-[0.3em] text-[#c7bee6] whitespace-nowrap inline-block"
-                        >
-                              DEBATE.DIPLOMACY.DEVELOPMENT
-                        </motion.p>
+                {/* KIET + Logo side by side */}
+                <div className="flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-6 mb-[5px]">
+                    
+                    {/* Logo - Smaller on mobile */}
+                    <div className="relative w-[45px] h-[45px] sm:w-[70px] sm:h-[70px] md:w-[100px] md:h-[100px] lg:w-[110px] lg:h-[110px] flex-shrink-0">
+                        <Image
+                            src="/log.png"
+                            alt="KIET MUN Logo"
+                            fill
+                            priority
+                            className="object-contain drop-shadow-2xl"
+                        />
                     </div>
+
+                    {/* KIET text - Smaller on mobile */}
+                    <motion.span
+                        {...({variants: fadeInUp,
+                        initial: "hidden",
+                        animate: "visible",
+                        transition: { duration: 0.6, ease: "easeOut" }} as any)}
+                        className="text-xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[0.25em] sm:tracking-[0.3em] text-[#c7bee6] font-bold uppercase"
+                    >
+                        KIET
+                    </motion.span>
                 </div>
 
-                {/* Desktop: Logo + Year split animation */}
-                <div className="hidden md:flex items-center gap-12 mt-8 mb-6">
-                    {/* Logo slides from left */}
-                    <motion.div
-                        initial={{ x: -120, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{
-                            duration: 0.9,
-                            ease: [0.16, 1, 0.3, 1],
-                        }}
-                        className="relative"
-                    >
-                        <div className="relative w-[200px] h-[200px]">
-                            {/* Purple laurel wreath border */}
-                            <div className="absolute inset-0 rounded-full" style={{
-                                border: '8px solid #6e72b2',
-                                boxShadow: '0 0 20px rgba(110, 114, 178, 0.3)'
-                            }}></div>
-                            <div className="absolute inset-2 flex items-center justify-center">
-                                <Image
-                                    src="/log.png"
-                                    alt="KIET MUN Logo"
-                                    width={140}
-                                    height={140}
-                                    priority
-                                    className="object-contain"
-                                />
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* Divider - Made Bold */}
-                    <div className="w-[3px] h-32 bg-[#6e72b2]"></div>
-
-                    {/* Year slides from right */}
-                    <motion.div
-                        initial={{ x: 120, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{
-                            duration: 0.9,
-                            ease: [0.16, 1, 0.3, 1],
-                            delay: 0.1,
-                        }}
-                        className="text-left"
-                    >
-                        <h2 className="text-5xl font-bold text-[#c7bee6] leading-none">
-                            KIET MUN
-                        </h2>
-                        <h2 className="text-7xl font-bold text-[#c7bee6] leading-none mt-2 ml-8">
-                            2026
-                        </h2>
-                    </motion.div>
-                </div>
-
-                {/* Mobile: Logo and Year stacked */}
-                <div className="md:hidden mt-10 mb-6">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{
+                {/* Title Container */}
+                <div className="relative flex flex-row items-center justify-center">
+                    {/* Main Title - Better mobile sizing */}
+                    <motion.h1
+                        {...({variants: fadeInUp,
+                        initial: "hidden",
+                        animate: "visible",
+                        transition: {
                             duration: 0.7,
-                            ease: [0.16, 1, 0.3, 1],
-                        }}
-                        className="relative"
+                            delay: 0.2,
+                            ease: "easeOut",
+                        }} as any)}
+                        className="relative z-10 text-xl sm:text-3xl md:text-5xl lg:text-7xl font-extrabold tracking-tight sm:tracking-wide leading-tight text-white drop-shadow-lg"
                     >
-                        <div className="relative w-[160px] h-[160px] mx-auto">
-                            {/* Purple laurel wreath border */}
-                            <div className="absolute inset-0 rounded-full" style={{
-                                border: '6px solid #6e72b2',
-                                boxShadow: '0 0 15px rgba(110, 114, 178, 0.3)'
-                            }}></div>
-                            <div className="absolute inset-2 flex items-center justify-center">
-                                <Image
-                                    src="/log.png"
-                                    alt="KIET MUN Logo"
-                                    width={110}
-                                    height={110}
-                                    priority
-                                    className="object-contain"
-                                />
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    <div className="mt-6 text-center">
-                        <h2 className="text-3xl font-bold text-[#c7bee6] leading-none">
-                            KIET MUN
-                        </h2>
-                        <h2 className="text-4xl font-bold text-[#c7bee6] leading-none mt-2 ">
-                            2026
-                        </h2>
-                    </div>
+                        MODEL UNITED NATIONS 8.0
+                    </motion.h1>
                 </div>
+
+                {/* Static Tagline */}
+                <motion.p
+                    {...({variants: fadeIn,
+                    initial: "hidden",
+                    animate: "visible",
+                    transition: { duration: 0.6, delay: 0.4 }} as any)}
+                    className="mt-2 sm:mt-3 text-[10px] sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium"
+                >
+                    DEBATE &nbsp;•&nbsp; DISCUSSION &nbsp;•&nbsp; DIPLOMACY
+                </motion.p>
+
+                {/* Year */}
+                <motion.h2
+                    {...({variants: fadeInUp,
+                    initial: "hidden",
+                    animate: "visible",
+                    transition: {
+                        duration: 0.6,
+                        delay: 0.5,
+                        ease: "easeOut",
+                    }} as any)}
+                    className="mt-2 sm:mt-3 md:mt-4 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-[#c7bee6] leading-none drop-shadow-md"
+                >
+                    2026
+                </motion.h2>
             </div>
 
-            {/* Bottom Building Image - Enhanced sizing and positioning */}
+            {/* Bottom Building Image */}
             <div
                 className="
                     absolute bottom-0 left-1/2
                     -translate-x-1/2
                     z-20
-                    w-[90%] max-w-[1000px]
+                    w-[95%] max-w-[1100px]
                     h-[220px]
                     sm:h-[280px]
                     md:h-[950px]
@@ -197,6 +150,7 @@ export default function HeroContent(): React.ReactElement {
                     style={{ filter: 'grayscale(100%) brightness(0.85) contrast(1.1)' }}
                 />
             </div>
+
         </section>
     );
 }

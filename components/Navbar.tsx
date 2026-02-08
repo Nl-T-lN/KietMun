@@ -87,7 +87,7 @@ export default function Navbar(): React.ReactElement {
                 {/* Desktop CTA */}
                 <button
                     onClick={() => router.push("/register")}
-                    className="hidden md:block rounded-md bg-white px-5 py-2 text-sm font-semibold text-[#0d0c2d]"
+                    className="hidden md:block rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-[#0d0c2d] hover:bg-[#c7bee6] transition-colors duration-300 shadow-sm"
                 >
                     Register
                 </button>
@@ -112,17 +112,19 @@ export default function Navbar(): React.ReactElement {
 
             {/* MOBILE DRAWER (RIGHT → LEFT) */}
             <motion.aside
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.15}
-                onDragEnd={(_, info) => {
-                    if (info.offset.x > 80) {
-                        setOpen(false);
-                    }
-                }}
-                initial={{ x: "100%" }}
-                animate={{ x: open ? 0 : "100%" }}
-                transition={{ type: "tween", duration: 0.3 }}
+                {...({
+                    drag: "x",
+                    dragConstraints: { left: 0, right: 0 },
+                    dragElastic: 0.15,
+                    onDragEnd: (_: any, info: any) => {
+                        if (info.offset.x > 80) {
+                            setOpen(false);
+                        }
+                    },
+                    initial: { x: "100%" },
+                    animate: { x: open ? 0 : "100%" },
+                    transition: { type: "tween", duration: 0.3 }
+                } as any)}
                 className="
                     fixed top-0 right-0
                     h-full w-[280px]
@@ -151,12 +153,14 @@ export default function Navbar(): React.ReactElement {
 
                 {/* Animated Links */}
                 <motion.ul
-                    initial="hidden"
-                    animate={open ? "visible" : "hidden"}
-                    variants={{
-                        visible: { transition: { staggerChildren: 0.08 } },
-                        hidden: {},
-                    }}
+                    {...({
+                        initial: "hidden",
+                        animate: open ? "visible" : "hidden",
+                        variants: {
+                            visible: { transition: { staggerChildren: 0.08 } },
+                            hidden: {},
+                        }
+                    } as any)}
                     className="flex flex-col px-6 py-8 gap-6 flex-1"
                 >
                     {navItems.map((item) => (
