@@ -58,8 +58,7 @@ export default function HeroContent(): React.ReactElement {
                 "
             >
                 {/* KIET + Logo side by side */}
-                {/* Margin bottom keeps separation from Title, but logo is smaller now */}
-                <div className="flex flex-row items-center justify-center gap-3 sm:gap-5 md:gap-6 mb- sm:mb-6 md:mb-8">
+                <div className="flex flex-row items-center justify-center gap-3 sm:gap-5 md:gap-6 mb-[5px]">
                     
                     {/* 2. SIGNIFICANTLY REDUCED LOGO SIZE */ }
                     <div className="relative w-[70px] h-[70px] sm:w-[90px] sm:h-[90px] md:w-[100px] md:h-[100px] lg:w-[100px] lg:h-[150px] flex-shrink-0">
