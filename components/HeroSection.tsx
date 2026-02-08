@@ -133,7 +133,7 @@ export default function HeroContent(): React.ReactElement {
                     absolute bottom-0 left-1/2
                     -translate-x-1/2
                     z-20
-                    w-[95%] max-w-[1100px]
+                    w-[110%] sm:w-[95%] max-w-[1100px]
                     h-[420px]
                     sm:h-[280px]
                     md:h-[950px]
@@ -146,7 +146,7 @@ export default function HeroContent(): React.ReactElement {
                     alt="KIET Building"
                     fill
                     priority
-                    className="object-contain object-bottom"
+                    className="object-contain object-bottom scale-[1.25] sm:scale-100 origin-bottom"
                     style={{ filter: 'grayscale(100%) brightness(0.85) contrast(1.1)' }}
                 />
             </div>
