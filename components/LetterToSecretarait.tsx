@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function LetterFromSecretariat() {
     return (
-        <section className="bg-white py-24 px-6 md:px-20 flex justify-center">
+        <section className="bg-gradient-to-b from-white via-[#f8f7fc] to-white py-28 px-6 md:px-20 flex justify-center">
             <motion.div
                 initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -13,11 +13,11 @@ export default function LetterFromSecretariat() {
                 className="
           max-w-4xl w-full
           bg-white
-          border-t-8 border-[#6f67b8]
-          rounded-xl
-          p-10 md:p-14
-          shadow-lg hover:shadow-xl
-          transition-shadow duration-300
+          border-t-4 border-[#6f67b8]
+          rounded-2xl
+          p-10 md:p-16
+          shadow-lg hover:shadow-2xl
+          transition-shadow duration-500
         "
             >
                 {/* Heading */}

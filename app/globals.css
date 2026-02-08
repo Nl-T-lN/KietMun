@@ -1,3 +1,28 @@
 @import "tailwindcss";
 
+/* Floating animation for the logo */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Smooth scrolling globally */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom selection color */
+::selection {
+    background-color: #c7bee6;
+    color: #0d0c2d;
+}
+
 

@@ -37,7 +37,7 @@ const CountdownTimer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
             viewport={{ once: false }}
-            className="flex flex-col items-center justify-center bg-white py-20 px-4"
+            className="flex flex-col items-center justify-center bg-gradient-to-b from-white via-[#f8f7fc] to-white py-24 px-4"
         >
             {/* Heading */}
             <motion.h2
@@ -45,7 +45,7 @@ const CountdownTimer = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1, delay: 0.2 }}
                 viewport={{ once: false }}
-                className="text-3xl sm:text-4xl md:text-6xl font-bold text-center mb-12 tracking-wide text-[#0d0c2d]"
+                className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-center mb-14 tracking-tight text-[#0d0c2d]"
             >
                 Conference Begins In
             </motion.h2>
@@ -73,10 +73,11 @@ const CountdownTimer = () => {
               rounded-3xl
               text-center
               w-full
-              border-2
-              border-[#6f67b8]
-              shadow-lg
+              border
+              border-[#c7bee6]/50
+              shadow-md
               hover:shadow-xl
+              hover:border-[#6f67b8]
               transition-all
               duration-300
             "

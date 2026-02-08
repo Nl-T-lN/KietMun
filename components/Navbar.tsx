@@ -87,7 +87,7 @@ export default function Navbar(): React.ReactElement {
                 {/* Desktop CTA */}
                 <button
                     onClick={() => router.push("/register")}
-                    className="hidden md:block rounded-md bg-white px-5 py-2 text-sm font-semibold text-[#0d0c2d]"
+                    className="hidden md:block rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-[#0d0c2d] hover:bg-[#c7bee6] transition-colors duration-300 shadow-sm"
                 >
                     Register
                 </button>
