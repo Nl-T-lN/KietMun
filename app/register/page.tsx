@@ -379,7 +379,7 @@ export default function Register(): React.ReactElement {
                         </div>
                         <div className="bg-white p-4 rounded-xl shadow-lg border border-[#C7BEE6]/30">
                             <Image
-                                src="/qr.png"
+                                src="/Qr.jpeg"
                                 alt="Payment QR Code"
                                 width={200}
                                 height={200}

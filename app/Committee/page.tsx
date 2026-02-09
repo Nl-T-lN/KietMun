@@ -74,28 +74,28 @@ const committees: CommitteeItem[] = [
         name: "UNGA-DISEC",
         img: "/UNGAC.jpg",
         agenda:
-            "Deliberation on the illegal trade of conventional arms, with special emphasis on the effectiveness of international arms control agreements.",
+            "Weaponization of Peace how Global Powers Exploit Security Terrorism & Arm Control to Sustain Dominance.",
         animation: fadeInLeft,
     },
     {
         name: "UNHRC",
         img: "/UNHRC.jpg",
         agenda:
-            "Addressing human rights violations and their impact on civilians in the MENA region.",
+            "Re-evaluating the global human rights framework amid armed conflicts, digital surveillance, and mass displacement.",
         animation: fadeInRight,
     },
     {
         name: "UNCSW",
         img: "/UNCSW.png",
         agenda:
-            "Deliberation on reducing greenhouse gas emissions and transitioning to low-carbon economies.",
+            "Discussion on Preventing the Violation of Women's Rights in Conflict Regions, with a Special Focus on Post-Conflict Reconstruction.",
         animation: fadeInLeft,
     },
     {
         name: "AIPPM",
         img: "/AIPPM.avif",
         agenda:
-            "Addressing challenges to secularism posed by political parties leveraging religion for electoral gains.",
+            "Discussion on the  Constitutional status of Ladakh with special emphasis on the current events, demands of sixth schedule and statehood.",
         animation: fadeInRight,
     },
 ];

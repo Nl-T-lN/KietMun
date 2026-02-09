@@ -57,7 +57,7 @@ export default function HeroContent(): React.ReactElement {
                 "
             >
                 {/* KIET + Logo side by side */}
-                <div className="flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-6 mb-[5px]">
+                <div className="flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-6 mb-[-8px]">
                     
                     {/* Logo - Smaller on mobile */}
                     <div className="relative w-[45px] h-[45px] sm:w-[70px] sm:h-[70px] md:w-[100px] md:h-[100px] lg:w-[110px] lg:h-[110px] flex-shrink-0">
@@ -76,7 +76,7 @@ export default function HeroContent(): React.ReactElement {
                         initial: "hidden",
                         animate: "visible",
                         transition: { duration: 0.6, ease: "easeOut" }} as any)}
-                        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[0.25em] sm:tracking-[0.3em] text-[#c7bee6] font-bold uppercase"
+                        className="text-xl sm:text-3xl md:text-4xl lg:text-6xl tracking-[0.25em] sm:tracking-[0.3em] text-[#c7bee6] font-bold uppercase"
                     >
                         KIET
                     </motion.span>
@@ -94,22 +94,44 @@ export default function HeroContent(): React.ReactElement {
                             delay: 0.2,
                             ease: "easeOut",
                         }} as any)}
-                        className="relative z-10 text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-extrabold tracking-tight sm:tracking-wide leading-tight text-white drop-shadow-lg"
+                        className="relative z-10 text-xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight sm:tracking-wide leading-tight text-white drop-shadow-lg"
                     >
                         MODEL UNITED NATIONS 8.0
                     </motion.h1>
                 </div>
 
-                {/* Static Tagline */}
-                <motion.p
+                {/* Marquee Tagline using Framer Motion */}
+                <motion.div
                     {...({variants: fadeIn,
                     initial: "hidden",
                     animate: "visible",
                     transition: { duration: 0.6, delay: 0.4 }} as any)}
-                    className="mt-2 sm:mt-3 text-xs sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium"
+                     className=" sm:mt-3 w-full max-w-[200px] sm:max-w-[300px] md:max-w-[400px] overflow-hidden relative"
                 >
-                    DEBATE &nbsp;•&nbsp; DISCUSSION &nbsp;•&nbsp; DIPLOMACY
-                </motion.p>
+                    <motion.div
+                        animate={{ x: ["-100%", "0%"] }}
+                        transition={{
+                            duration: 15,
+                            repeat: Infinity,
+                            ease: "linear",
+                            repeatType: "loop"
+                        }}
+                        className="flex whitespace-nowrap"
+                    >
+                        <span className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
+                            DEBATE . DISCUSSION . DIPLOMACY 
+                        </span>
+                        <span className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
+                            DEBATE . DISCUSSION . DIPLOMACY 
+                        </span>
+                        <span className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
+                            DEBATE . DISCUSSION . DIPLOMACY 
+                        </span>
+                        <span className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
+                            DEBATE . DISCUSSION . DIPLOMACY 
+                        </span>
+                    </motion.div>
+                </motion.div>
 
                 {/* Year */}
                 <motion.h2
@@ -121,7 +143,7 @@ export default function HeroContent(): React.ReactElement {
                         delay: 0.5,
                         ease: "easeOut",
                     }} as any)}
-                    className="mt-2 sm:mt-3 md:mt-4 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-[#c7bee6] leading-none drop-shadow-md"
+                    className="mt-2 sm:mt-3 md:mt-4 text-4xl sm:text-6xl md:text-5xl lg:text-6xl font-bold text-[#c7bee6] leading-none drop-shadow-md"
                 >
                     2026
                 </motion.h2>

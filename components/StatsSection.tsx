@@ -12,7 +12,7 @@ interface StatItem {
 const stats: StatItem[] = [
     { value: 4000, suffix: "+", label: "Delegates" },
     { value: 15, suffix: "+", label: "Committees" },
-    { value: 8, suffix: "", label: "Years of Excellence" },
+    { value: 7, suffix: "", label: "Years of Excellence" },
 ];
 
 const springConfig = { damping: 30, stiffness: 100, mass: 2 };
@@ -144,8 +144,8 @@ export default function StatsSection(): React.ReactElement {
                     className="mb-12 sm:mb-16 text-center"
                 >
                     <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide">
-                        <span className="text-[#0d0c2d]">KIET MUN</span>{" "}
-                        <span className="text-[#0d0c2d]/70">By The Numbers</span>
+                        <span className="text-[#0d0c2d]">KIET MUN By The Number</span>
+                        
                     </h2>
                     <div className="mx-auto mt-4 h-[2px] w-16 rounded-full bg-[#0d0c2d]/20" />
                 </motion.div>
