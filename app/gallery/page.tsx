@@ -8,48 +8,49 @@ import { motion } from "framer-motion";
 interface GalleryImage {
     src: string;
     alt: string;
+    rotate?: number;
 }
 
 /* ================= DATA ================= */
 
 const images: GalleryImage[] = [
-    { src: "/DSC00522.JPG", alt: "Gallery image 1" },
-    { src: "/DSC00533.JPG", alt: "Gallery image 2" },
-    { src: "/DSC00540.JPG", alt: "Gallery image 3" },
-    { src: "/DSC00543.JPG", alt: "Gallery image 4" },
-    { src: "/IMG_0094.JPG", alt: "Gallery image 5" },
-    { src: "/IMG_0096.JPG", alt: "Gallery image 6" },
-    { src: "/Group.jpeg", alt: "Gallery image 7" },
-    { src: "/IMG_091.JPG", alt: "Gallery image 8" },
-    { src: "/IMG_093.JPG", alt: "Gallery image 9" },
-    { src: "/IMG_092.JPG", alt: "Gallery image 10" },
-    { src: "/IMG_10.JPG", alt: "Gallery image 11" },
-    { src: "/IMG_11.JPG", alt: "Gallery image 12" },
-    { src: "/IMG_0181.JPG", alt: "Gallery image 13" },
-    { src: "/IMG_0142.JPG", alt: "Gallery image 14" },
-    { src: "/IMG_12.JPG", alt: "Gallery image 15" },
-    { src: "/IMG_0166.JPG", alt: "Gallery image 16" },
-    { src: "/IMG_14.JPG", alt: "Gallery image 17" },
-    { src: "/IMG_18.JPG", alt: "Gallery image 18" },
-    { src: "/IMG_19.JPG", alt: "Gallery image 19" },
-    { src: "/IMG_M.jpeg", alt: "Gallery image 20" },
-    { src: "/IMG_20.jpeg", alt: "Gallery image 21" },
-    { src: "/IMG_21.JPG", alt: "Gallery image 22" },
-    { src: "/IMG_21.jpeg", alt: "Gallery image 23" },
-    { src: "/IMG_22.jpeg", alt: "Gallery image 24" },
-    { src: "/IMG_23.jpeg", alt: "Gallery image 25" },
-    { src: "/IMG_24.jpeg", alt: "Gallery image 26" },
-    { src: "/IMG_25.jpeg", alt: "Gallery image 27" },
-    { src: "/IMG_27.jpeg", alt: "Gallery image 28" },
-    { src: "/IMG_28.jpeg", alt: "Gallery image 29" },
-    { src: "/IMG_29.jpeg", alt: "Gallery image 30" },
-    { src: "/IMG_30.jpeg", alt: "Gallery image 31" },
-    { src: "/IMG_31.jpeg", alt: "Gallery image 32" },
-    { src: "/IMG_32.jpeg", alt: "Gallery image 33" },
-    { src: "/IMG_33.jpeg", alt: "Gallery image 34" },
-    { src: "/IMG_34.jpeg", alt: "Gallery image 35" },
-    { src: "/IMG_35.jpeg", alt: "Gallery image 36" },
-    { src: "/IMG_37.jpg", alt: "Gallery image 37" },
+    { src: "/IMG_2980.webp", alt: "Gallery image 1" },
+    { src: "/DSC01458.webp", alt: "Gallery image 2" },
+    { src: "/DSC01494.webp", alt: "Gallery image 3" },
+    { src: "/DSC01539.webp", alt: "Gallery image 4" },
+    { src: "/IMG_3044.webp", alt: "Gallery image 5" },
+    { src: "/IMG_3101.webp", alt: "Gallery image 6" },
+    { src: "/IMG_3106.webp", alt: "Gallery image 7" },
+    { src: "/IMG_3110.webp", alt: "Gallery image 8" },
+    { src: "/DSC01440.webp", alt: "Gallery image 9" },
+    { src: "/DSC01527.webp", alt: "Gallery image 10" },
+    { src: "/IMG_3243.webp", alt: "Gallery image 11" },
+    { src: "/IMG_3291.webp", alt: "Gallery image 12",rotate: -90 },
+    { src: "/IMG_3308.webp", alt: "Gallery image 13" },
+    { src: "/IMG_3363.webp", alt: "Gallery image 14" },
+    { src: "/IMG_3449.webp", alt: "Gallery image 15" },
+    { src: "/IMG_3477.webp", alt: "Gallery image 16" },
+    { src: "/IMG_3676.webp", alt: "Gallery image 17" },
+    { src: "/IMG_4030.webp", alt: "Gallery image 18" },
+    { src: "/IMG_5001.webp", alt: "Gallery image 19" },
+    { src: "/IMG_5010.webp", alt: "Gallery image 20" },
+    { src: "/IMG_4005.webp", alt: "Gallery image 21" },
+    { src: "/IMG_3998.webp", alt: "Gallery image 22" },
+    { src: "/IMG_3040.webp", alt: "Gallery image 23", },
+    { src: "/IMG_3529.webp", alt: "Gallery image 24" },
+    { src: "/IMG_3500.webp", alt: "Gallery image 25" },
+    { src: "/IMG_3467.webp", alt: "Gallery image 26",rotate: -90 },
+    { src: "/IMG_3306.webp", alt: "Gallery image 27" },
+    { src: "/IMG_3216.webp", alt: "Gallery image 28",rotate: -90 },
+    { src: "/IMG_3055.webp", alt: "Gallery image 29" },
+    { src: "/IMG_3072.webp", alt: "Gallery image 30" },
+    { src: "/IMG_3111.webp", alt: "Gallery image 31" },
+    { src: "/IMG_3114.webp", alt: "Gallery image 32" },
+    { src: "/IMG_3289.webp", alt: "Gallery image 33",rotate: -90 },
+    { src: "/IMG_3346.webp", alt: "Gallery image 34" },
+    { src: "/IMG_3356.webp", alt: "Gallery image 35",rotate: -90 },
+    { src: "/IMG_3350.webp", alt: "Gallery image 36" },
+    { src: "/grp photo mun.webp", alt: "Gallery image 37" },
 ];
 
 /* ================= COMPONENT ================= */
@@ -73,6 +74,8 @@ export default function Gallery(): React.ReactElement {
                         quality={70}
                         sizes="100vw"
                         className="object-cover"
+style={{ transform: image.rotate ? `rotate(${image.rotate}deg)` : undefined }}
+
                     />
                 </div>
             </motion.div>
@@ -108,6 +111,8 @@ export default function Gallery(): React.ReactElement {
                                     quality={70}
                                     sizes="(min-width: 768px) 33vw"
                                     className="object-cover"
+style={{ transform: img.rotate ? `rotate(${img.rotate}deg)` : undefined }}
+
                                 />
                             </div>
                         );
