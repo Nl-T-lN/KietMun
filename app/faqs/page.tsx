@@ -130,11 +130,11 @@ export default function FAQPage(): React.ReactElement {
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeOut" }}
-                      className="overflow-hidden"
+                      {...({initial: { height: 0, opacity: 0 },
+                      animate: { height: "auto", opacity: 1 },
+                      exit: { height: 0, opacity: 0 },
+                      transition: { duration: 0.3, ease: "easeOut" },
+                      className: "overflow-hidden"} as any)}
                     >
                       <div className="px-6 pb-6 text-[#0d0c2d]/80 leading-relaxed">
                         {item.answer}

@@ -109,14 +109,14 @@ export default function HeroContent(): React.ReactElement {
                      className=" sm:mt-3 w-full max-w-[200px] sm:max-w-[300px] md:max-w-[400px] overflow-hidden relative"
                 >
                     <motion.div
-                        animate={{ x: ["-100%", "0%"] }}
-                        transition={{
+                        {...({animate: { x: ["-100%", "0%"] },
+                        transition: {
                             duration: 15,
                             repeat: Infinity,
                             ease: "linear",
                             repeatType: "loop"
-                        }}
-                        className="flex whitespace-nowrap"
+                        },
+                        className: "flex whitespace-nowrap"} as any)}
                     >
                         <span className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
                             DEBATE . DISCUSSION . DIPLOMACY 
