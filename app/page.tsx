@@ -9,6 +9,7 @@ import LetterFromSecretariat from "@/components/LetterToSecretarait";
 import CommitteesPage from "@/components/CommitteePage";
 import StatsSection from "@/components/StatsSection";
 import Footer from "@/components/Footer";
+import GuestSpeakers from "@/components/Speakers";
 
 const sectionVariants: Variants = {
     hidden: {
@@ -76,6 +77,9 @@ export default function Home(): React.ReactElement {
             >
                 <CommitteesPage />
             </motion.div>
+<GuestSpeakers />
+
+
 
             {/* STATS - BY THE NUMBERS */}
             <motion.div {...({initial: "hidden", whileInView: "visible", viewport: { once: true }, variants: sectionVariants} as any)}>
