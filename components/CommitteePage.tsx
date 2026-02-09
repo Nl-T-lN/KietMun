@@ -141,12 +141,12 @@ export default function CommitteesPage(): React.ReactElement {
                             style={{ perspective: "1000px" }}
                         >
                             <motion.div
-                                className="relative w-full h-full bg-transparent"
-                                animate={{
+                                {...({className: "relative w-full h-full bg-transparent",
+                                animate: {
                                     rotateY: flipped === committee.name ? 180 : 0,
-                                }}
-                                transition={{ duration: 0.6 }}
-                                style={{ transformStyle: "preserve-3d" }}
+                                },
+                                transition: { duration: 0.6 },
+                                style: { transformStyle: "preserve-3d" }} as any)}
                             >
                                 {/* Front Side - Image */}
                                 <div
@@ -199,11 +199,11 @@ export default function CommitteesPage(): React.ReactElement {
                         </div>
 
                         <motion.span
-                            className="mt-4 text-xl font-semibold text-[#0d0c2d]"
-                            animate={{
+                            {...({className: "mt-4 text-xl font-semibold text-[#0d0c2d]",
+                            animate: {
                                 opacity: flipped === committee.name ? 0 : 1,
-                            }}
-                            transition={{ duration: 0.3 }}
+                            },
+                            transition: { duration: 0.3 }} as any)}
                         >
                             {committee.name}
                         </motion.span>

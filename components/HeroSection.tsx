@@ -19,7 +19,7 @@ export default function HeroContent(): React.ReactElement {
     };
 
     return (
-        <section className="relative min-h-screen overflow-hidden">
+        <section className="relative min-h-[100dvh] sm:min-h-screen overflow-hidden">
             {/* Navbar */}
             <Navbar />
 
@@ -47,12 +47,12 @@ export default function HeroContent(): React.ReactElement {
             <div
                 className="
                     relative z-10
-                    min-h-screen
+                    min-h-[100dvh] sm:min-h-screen
                     flex flex-col
                     items-center
                     text-center
                     px-4 sm:px-10
-                    pt-20 sm:pt-24 md:pt-28 lg:pt-32
+                    pt-24 sm:pt-24 md:pt-28 lg:pt-32
                     text-white
                 "
             >
@@ -107,17 +107,16 @@ export default function HeroContent(): React.ReactElement {
                     animate: "visible",
                     transition: { duration: 0.6, delay: 0.4 }} as any)}
                      className=" sm:mt-3 w-full max-w-[200px] sm:max-w-[300px] md:max-w-[400px] overflow-hidden relative"
-
                 >
                     <motion.div
-                        animate={{ x: ["-100%", "0%"] }}
-                        transition={{
+                        {...({animate: { x: ["-100%", "0%"] },
+                        transition: {
                             duration: 15,
                             repeat: Infinity,
                             ease: "linear",
                             repeatType: "loop"
-                        }}
-                        className="flex whitespace-nowrap"
+                        },
+                        className: "flex whitespace-nowrap"} as any)}
                     >
                         <span className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
                             DEBATE . DISCUSSION . DIPLOMACY 
@@ -156,8 +155,8 @@ export default function HeroContent(): React.ReactElement {
                     absolute bottom-0 left-1/2
                     -translate-x-1/2
                     z-20
-                    w-[95%] max-w-[1100px]
-                    h-[220px]
+                    w-[110%] sm:w-[95%] max-w-[1100px]
+                    h-[420px]
                     sm:h-[280px]
                     md:h-[950px]
                     lg:h-[700px]
@@ -169,7 +168,7 @@ export default function HeroContent(): React.ReactElement {
                     alt="KIET Building"
                     fill
                     priority
-                    className="object-contain object-bottom"
+                    className="object-contain object-bottom scale-[1.25] sm:scale-100 origin-bottom"
                     style={{ filter: 'grayscale(100%) brightness(0.85) contrast(1.1)' }}
                 />
             </div>
