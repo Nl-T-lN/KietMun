@@ -39,11 +39,11 @@ export default function HeroContent(): React.ReactElement {
                 className="object-cover -z-30"
             />
 
-            {/* Gradient overlays for depth */}
+            {/* Gradient overlays */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#0d0c2d]/60 via-transparent to-[#0d0c2d]/80 -z-10 pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0d0c2d]/30 to-transparent -z-10 pointer-events-none" />
 
-            {/* Hero Content */}
+ {/* Hero Content */}
             <div
                 className="
                     relative z-10
@@ -58,9 +58,10 @@ export default function HeroContent(): React.ReactElement {
             >
                 {/* KIET + Logo side by side */}
                 <div className="flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-6 mb-10 sm:mb-[-8px]">
-                    
-                    {/* Logo - Smaller on mobile */}
-                    <div className="relative w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] md:w-[100px] md:h-[100px] lg:w-[110px] lg:h-[110px] flex-shrink-0">
+
+
+                    {/* Logo - Increased size */}
+                        <div className="relative w-[100px] h-[100px] sm:w-[110px] sm:h-[110px] md:w-[140px] md:h-[140px] lg:w-[150px] lg:h-[150px] flex-shrink-0">
                         <Image
                             src="/log.png"
                             alt="KIET MUN Logo"
@@ -70,7 +71,7 @@ export default function HeroContent(): React.ReactElement {
                         />
                     </div>
 
-                    {/* KIET text - Smaller on mobile */}
+                    {/* KIET text */}
                     <motion.span
                         {...({variants: fadeInUp,
                         initial: "hidden",
@@ -84,9 +85,8 @@ export default function HeroContent(): React.ReactElement {
 
                 {/* Title + Marquee Group */}
                 <div className="flex flex-col items-center gap-1 sm:gap-0">
-                    {/* Title Container */}
+                    {/* Title Container - INCREASED SIZE */}
                     <div className="relative flex flex-row items-center justify-center">
-                        {/* Main Title - Better mobile sizing */}
                         <motion.h1
                             {...({variants: fadeInUp,
                             initial: "hidden",
@@ -96,19 +96,19 @@ export default function HeroContent(): React.ReactElement {
                                 delay: 0.2,
                                 ease: "easeOut",
                             }} as any)}
-                            className="relative z-10 text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight sm:tracking-wide leading-tight text-white drop-shadow-lg"
+                            className="relative z-10 text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight sm:tracking-wide leading-tight text-white drop-shadow-lg"
                         >
                             MODEL UNITED NATIONS 8.0
                         </motion.h1>
                     </div>
 
-                    {/* Marquee Tagline using Framer Motion */}
+                    {/* Marquee Tagline - INCREASED SIZE */}
                     <motion.div
                         {...({variants: fadeIn,
                         initial: "hidden",
                         animate: "visible",
                         transition: { duration: 0.6, delay: 0.4 }} as any)}
-                        className="sm:mt-3 w-full max-w-[200px] sm:max-w-[300px] md:max-w-[400px] overflow-hidden relative"
+                        className="sm:mt-3 w-full max-w-[280px] sm:max-w-[400px] md:max-w-[500px] overflow-hidden relative"
                     >
                     <motion.div
                         {...({animate: { x: ["-100%", "0%"] },
@@ -120,17 +120,17 @@ export default function HeroContent(): React.ReactElement {
                         },
                         className: "flex whitespace-nowrap"} as any)}
                     >
-                        <span className="text-xs sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
-                            DEBATE . DISCUSSION . DIPLOMACY 
+                        <span className="text-sm sm:text-base md:text-lg tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
+                            DEBATE . DISCUSSION . DIPLOMACY
                         </span>
-                        <span className="text-xs sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
-                            DEBATE . DISCUSSION . DIPLOMACY 
+                        <span className="text-sm sm:text-base md:text-lg tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
+                            DEBATE . DISCUSSION . DIPLOMACY
                         </span>
-                        <span className="text-xs sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
-                            DEBATE . DISCUSSION . DIPLOMACY 
+                        <span className="text-sm sm:text-base md:text-lg tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
+                            DEBATE . DISCUSSION . DIPLOMACY
                         </span>
-                        <span className="text-xs sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
-                            DEBATE . DISCUSSION . DIPLOMACY 
+                        <span className="text-sm sm:text-base md:text-lg tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
+                            DEBATE . DISCUSSION . DIPLOMACY
                         </span>
                         </motion.div>
                     </motion.div>
@@ -146,10 +146,25 @@ export default function HeroContent(): React.ReactElement {
                         delay: 0.5,
                         ease: "easeOut",
                     }} as any)}
-                    className="mt-8 sm:mt-3 md:mt-4 text-4xl sm:text-6xl md:text-5xl lg:text-6xl font-bold text-[#c7bee6] leading-none drop-shadow-md"
+                    className="mt-4 sm:mt-3 md:mt-4 text-4xl sm:text-6xl md:text-5xl lg:text-6xl font-bold text-[#c7bee6] leading-none drop-shadow-md"
                 >
                     2026
                 </motion.h2>
+
+                {/* NEW: Date 28-29 March */}
+                <motion.p
+                    {...({variants: fadeInUp,
+                    initial: "hidden",
+                    animate: "visible",
+                    transition: {
+                        duration: 0.6,
+                        delay: 0.6,
+                        ease: "easeOut",
+                    }} as any)}
+                    className="mt-2 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white/90 tracking-wide drop-shadow-md"
+                >
+                    28-29 March
+                </motion.p>
 
                 {/* Register Button - Mobile Only */}
                 <motion.button
@@ -175,8 +190,7 @@ export default function HeroContent(): React.ReactElement {
                     -translate-x-1/2
                     z-20
                     w-[110%] sm:w-[95%] max-w-[1100px]
-                    h-[420px]
-                    sm:h-[280px]
+                    h-[500px] sm:h-[280px]
                     md:h-[950px]
                     lg:h-[700px]
                     pointer-events-none
@@ -188,10 +202,11 @@ export default function HeroContent(): React.ReactElement {
                     fill
                     priority
                     className="object-contain object-bottom scale-[1.25] sm:scale-100 origin-bottom"
-                    style={{ filter: 'grayscale(100%) brightness(0.85) contrast(1.1)' }}
+                    style={{
+                        filter: "grayscale(100%) brightness(0.85) contrast(1.1)"
+                    }}
                 />
             </div>
-
         </section>
     );
 }

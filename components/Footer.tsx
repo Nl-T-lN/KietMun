@@ -18,12 +18,14 @@ export default function Footer(): React.ReactElement {
                         </p>
                     </div>
 
-                    <a
-                        href="/brochure.pdf"
-                        className="bg-[#C7BEE6] text-[#0d0c2d] px-8 py-3 rounded-full text-sm font-semibold hover:scale-105 hover:shadow-lg transition-all duration-300"
-                    >
-                        Download
-                    </a>
+                   <a
+    href="/brochure.pdf"
+    download
+    className="bg-[#C7BEE6] text-[#0d0c2d] px-8 py-3 rounded-full text-sm font-semibold hover:scale-105 hover:shadow-lg transition-all duration-300"
+>
+    Download
+</a>
+
                 </div>
             </div>
 
