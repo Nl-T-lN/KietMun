@@ -2,15 +2,7 @@
 
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { createClient } from "@supabase/supabase-js";
 import Image from "next/image";
-
-/* ================= SUPABASE ================= */
-
-const supabase = createClient(
-    "https://gzesnriebmpgnwvzrvyd.supabase.co",
-    "YOUR_PUBLIC_ANON_KEY"
-);
 
 /* ================= TYPES ================= */
 
@@ -60,36 +52,12 @@ export default function Register(): React.ReactElement {
     /* ================= SUBMIT ================= */
 
     const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
-        // Check if all required fields are filled
-        if (
-            !data.name ||
-            !data.phone ||
-            !data.institute ||
-            !data.email ||
-            !data.committee1 ||
-            !data.portfolio1_1 ||
-            !data.portfolio1_2 ||
-            !data.portfolio1_3 ||
-            !data.committee2 ||
-            !data.portfolio2_1 ||
-            !data.portfolio2_2 ||
-            !data.portfolio2_3 ||
-            !data.experience ||
-            !data.transaction ||
-            !data.paymentScreenshot?.[0]
-        ) {
-            setStatus({
-                type: "error",
-                message: "All fields are required",
-            });
-            return;
-        }
-
         setLoading(true);
         setStatus(null);
 
         try {
             const file = data.paymentScreenshot?.[0];
+
             if (!file) {
                 setStatus({
                     type: "error",
@@ -99,26 +67,54 @@ export default function Register(): React.ReactElement {
                 return;
             }
 
-            const filePath = `screenshots/${Date.now()}_${data.phone}`;
+            // Client-side file validation (extra safety)
+            if (file.size > 10 * 1024 * 1024) {
+                setStatus({
+                    type: "error",
+                    message: "File size must be less than 10MB.",
+                });
+                setLoading(false);
+                return;
+            }
 
-            const { error: uploadError } = await supabase.storage
-                .from("screenshots")
-                .upload(filePath, file);
+            if (
+                !["image/png", "image/jpeg", "image/jpg"].includes(
+                    file.type
+                )
+            ) {
+                setStatus({
+                    type: "error",
+                    message: "Only PNG or JPG images allowed.",
+                });
+                setLoading(false);
+                return;
+            }
 
-            if (uploadError) throw uploadError;
+            const formData = new FormData();
 
-            const { data: urlData } = supabase.storage
-                .from("screenshots")
-                .getPublicUrl(filePath);
+            // Append all fields
+            Object.entries(data).forEach(([key, value]) => {
+                if (key !== "paymentScreenshot") {
+                    formData.append(key, value as string);
+                }
+            });
 
-            const { error } = await supabase.from("registrations").insert([
+            // Append file separately
+            formData.append("paymentScreenshot", file);
+
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/api/register`,
                 {
-                    ...data,
-                    paymentScreenshot: urlData.publicUrl,
-                },
-            ]);
+                    method: "POST",
+                    body: formData,
+                }
+            );
 
-            if (error) throw error;
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || "Submission failed");
+            }
 
             setStatus({
                 type: "success",
@@ -127,10 +123,12 @@ export default function Register(): React.ReactElement {
 
             reset();
             setFileName("");
-        } catch {
+        } catch (error: any) {
             setStatus({
                 type: "error",
-                message: "Registration failed. Please try again.",
+                message:
+                    error?.message ||
+                    "Registration failed. Please try again.",
             });
         } finally {
             setLoading(false);
@@ -139,7 +137,9 @@ export default function Register(): React.ReactElement {
 
     /* ================= FILE HANDLER ================= */
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const file = e.target.files?.[0];
         if (file) {
             setFileName(file.name);
@@ -399,13 +399,16 @@ export default function Register(): React.ReactElement {
                             <input
                                 type="file"
                                 accept="image/png,image/jpeg,image/jpg"
-                                {...register("paymentScreenshot", {
-                                    required: true,
-                                })}
-                                onChange={handleFileChange}
                                 className="hidden"
                                 id="file-upload"
-                            />
+                                {...register("paymentScreenshot", {
+                                    required: "Payment screenshot is required",
+                                    onChange: (e) => {
+                                    handleFileChange(e); // call your custom function
+                                    },
+                                })}
+                                />
+
                             <label
                                 htmlFor="file-upload"
                                 className={`flex flex-col items-center justify-center w-full h-40 border-2 border-dashed rounded-xl cursor-pointer transition-all ${
