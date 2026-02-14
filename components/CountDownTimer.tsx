@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const CountdownTimer = () => {
-    const eventDate = new Date("2026-04-18T10:00:00").getTime();
+    const eventDate = new Date("2026-03-28T10:00:00").getTime();
 
     const calculateTimeLeft = () => {
         const now = new Date().getTime();
