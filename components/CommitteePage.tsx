@@ -81,7 +81,7 @@ export default function CommitteesPage(): React.ReactElement {
                                 fill
                                 className="object-cover"
                                 sizes="144px"
-                                quality={70}
+                                
                             />
                         </div>
 
