@@ -72,28 +72,28 @@ interface CommitteeItem {
 const committees: CommitteeItem[] = [
     {
         name: "UNGA-DISEC",
-        img: "/UNGAC.jpg",
+        img: "/committees/unga.png",
         agenda:
             "Weaponization of Peace how Global Powers Exploit Security Terrorism & Arm Control to Sustain Dominance.",
         animation: fadeInLeft,
     },
     {
         name: "UNHRC",
-        img: "/UNHRC.jpg",
+        img: "/committees/unhrc.png",
         agenda:
             "Re-evaluating the global human rights framework amid armed conflicts, digital surveillance, and mass displacement.",
         animation: fadeInRight,
     },
     {
         name: "UNCSW",
-        img: "/UNCSW.png",
+        img: "/committees/uncsw.png",
         agenda:
             "Discussion on Preventing the Violation of Women's Rights in Conflict Regions, with a Special Focus on Post-Conflict Reconstruction.",
         animation: fadeInLeft,
     },
     {
         name: "AIPPM",
-        img: "/AIPPM.avif",
+        img: "/committees/aippm.png",
         agenda:
             "Discussion on the  Constitutional status of Ladakh with special emphasis on the current events, demands of sixth schedule and statehood.",
         animation: fadeInRight,

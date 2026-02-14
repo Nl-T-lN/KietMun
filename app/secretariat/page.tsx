@@ -12,7 +12,7 @@ export default function Secretariat(): React.ReactElement {
     const coreTeam: Member[] = [
         { name: "Abhishek Sharma", role: "Chief Advisor", image: "/images/abhishek.jpeg" },
         { name: "Sumit Verma", role: "Treasurer", image: "/images/sumit.jpeg" },
-        { name: "Ashutosh", role: "Secretary General", image: "/images/ashutosh.jpeg" },
+        { name: "Ashutosh", role: "Secretary General", image: "/images/Ashutosh.jpeg" },
         { name: "Tashi Verma", role: "Deputy Secretary General", image: "/images/tashi.jpeg" },
         { name: "Aadish Pathak", role: "Director General", image: "/images/adish.jpeg" },
         { name: "Pravira Shukla", role: "Senior Convenor", image: "/images/pravira.jpeg" },

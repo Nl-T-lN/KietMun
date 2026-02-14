@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { FaInstagram, FaLinkedin, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 
 export default function Footer(): React.ReactElement {
@@ -18,13 +19,13 @@ export default function Footer(): React.ReactElement {
                         </p>
                     </div>
 
-                   <a
-    href="/brochure.pdf"
-    download
-    className="bg-[#C7BEE6] text-[#0d0c2d] px-8 py-3 rounded-full text-sm font-semibold hover:scale-105 hover:shadow-lg transition-all duration-300"
->
-    Download
-</a>
+                    <a
+                        href="/brochure.pdf"
+                        download
+                        className="bg-[#C7BEE6] text-[#0d0c2d] px-8 py-3 rounded-full text-sm font-semibold hover:scale-105 hover:shadow-lg transition-all duration-300"
+                    >
+                        Download
+                    </a>
 
                 </div>
             </div>
@@ -40,8 +41,21 @@ export default function Footer(): React.ReactElement {
                     </p>
 
                     <div className="flex gap-4 mt-4 text-lg">
-                        <FaInstagram className="hover:text-[#C7BEE6] cursor-pointer" />
-                        <FaLinkedin className="hover:text-[#C7BEE6] cursor-pointer" />
+                        <Link
+                            href="https://instagram.com/kiet_mun"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <FaInstagram className="hover:text-[#C7BEE6] cursor-pointer" />
+                        </Link>
+
+                        <Link
+                            href="https://linkedin.com/in/kiet-mun-society-a69958351/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <FaLinkedin className="hover:text-[#C7BEE6] cursor-pointer" />
+                        </Link>
                     </div>
                 </div>
 

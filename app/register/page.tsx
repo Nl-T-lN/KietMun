@@ -8,7 +8,7 @@ import Image from "next/image";
 
 interface RegisterFormValues {
     name: string;
-    year?: string;
+    year: string;
     phone: string;
     institute: string;
     email: string;
@@ -41,6 +41,7 @@ export default function Register(): React.ReactElement {
     const [status, setStatus] = useState<Status>(null);
     const [loading, setLoading] = useState(false);
     const [fileName, setFileName] = useState<string>("");
+    const [preview, setPreview] = useState<string | null>(null);
 
     const {
         register,
@@ -67,7 +68,6 @@ export default function Register(): React.ReactElement {
                 return;
             }
 
-            // Client-side file validation (extra safety)
             if (file.size > 10 * 1024 * 1024) {
                 setStatus({
                     type: "error",
@@ -77,11 +77,7 @@ export default function Register(): React.ReactElement {
                 return;
             }
 
-            if (
-                !["image/png", "image/jpeg", "image/jpg"].includes(
-                    file.type
-                )
-            ) {
+            if (!["image/png", "image/jpeg", "image/jpg"].includes(file.type)) {
                 setStatus({
                     type: "error",
                     message: "Only PNG or JPG images allowed.",
@@ -92,22 +88,17 @@ export default function Register(): React.ReactElement {
 
             const formData = new FormData();
 
-            // Append all fields
             Object.entries(data).forEach(([key, value]) => {
                 if (key !== "paymentScreenshot") {
                     formData.append(key, value as string);
                 }
             });
 
-            // Append file separately
             formData.append("paymentScreenshot", file);
 
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_API_URL}/api/register`,
-                {
-                    method: "POST",
-                    body: formData,
-                }
+                { method: "POST", body: formData }
             );
 
             const result = await response.json();
@@ -122,13 +113,11 @@ export default function Register(): React.ReactElement {
             });
 
             reset();
-            setFileName("");
+            // keep filename + preview visible after success
         } catch (error: any) {
             setStatus({
                 type: "error",
-                message:
-                    error?.message ||
-                    "Registration failed. Please try again.",
+                message: error?.message || "Registration failed. Please try again.",
             });
         } finally {
             setLoading(false);
@@ -137,12 +126,11 @@ export default function Register(): React.ReactElement {
 
     /* ================= FILE HANDLER ================= */
 
-    const handleFileChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             setFileName(file.name);
+            setPreview(URL.createObjectURL(file));
         }
     };
 
@@ -155,10 +143,9 @@ export default function Register(): React.ReactElement {
          text-[#0d0c2d]
          placeholder:text-[#0d0c2d]/70
          bg-white
-         focus:outline-none focus:ring-2 ${
-            err
-                ? "border-red-500 focus:ring-red-500"
-                : "border-[#0d0c2d]/30 focus:ring-[#C7BEE6]"
+         focus:outline-none focus:ring-2 ${err
+            ? "border-red-500 focus:ring-red-500"
+            : "border-[#0d0c2d]/30 focus:ring-[#C7BEE6]"
         }`;
 
     /* ================= UI ================= */
@@ -191,7 +178,7 @@ export default function Register(): React.ReactElement {
                     </div>
 
                     <div>
-                        <label className={label}>Year (Optional)</label>
+                        <label className={label}>Year <span className="text-red-500">*</span></label>
                         <select {...register("year")} className={input()}>
                             <option value="">Select Year</option>
                             <option>1st</option>
@@ -252,14 +239,14 @@ export default function Register(): React.ReactElement {
                             <option>IT</option>
                             <option>ECE</option>
                             <option>ME</option>
+                            <option>OTHERS</option>
                         </select>
                     </div>
 
                     {/* COMMITTEE 1 */}
                     <div className="md:col-span-2">
                         <label className={label}>
-                            1st Committee Preference{" "}
-                            <span className="text-red-500">*</span>
+                            1st Committee Preference <span className="text-red-500">*</span>
                         </label>
                         <select
                             {...register("committee1", { required: true })}
@@ -268,37 +255,28 @@ export default function Register(): React.ReactElement {
                             <option value="">Select Committee</option>
                             <option>UNGA</option>
                             <option>UNHRC</option>
-                            <option>UNEP</option>
+                            <option>UNCSW</option>
                             <option>AIPPM</option>
                         </select>
                     </div>
 
-                    {["portfolio1_1", "portfolio1_2", "portfolio1_3"].map(
-                        (f) => (
-                            <div key={f}>
-                                <label className={label}>
-                                    Portfolio Preference{" "}
-                                    <span className="text-red-500">*</span>
-                                </label>
-                                <input
-                                    placeholder="Portfolio choice"
-                                    {...register(
-                                        f as keyof RegisterFormValues,
-                                        { required: true }
-                                    )}
-                                    className={input(
-                                        !!errors[f as keyof RegisterFormValues]
-                                    )}
-                                />
-                            </div>
-                        )
-                    )}
+                    {["portfolio1_1", "portfolio1_2", "portfolio1_3"].map((f) => (
+                        <div key={f}>
+                            <label className={label}>
+                                Portfolio Preference <span className="text-red-500">*</span>
+                            </label>
+                            <input
+                                placeholder="Portfolio choice"
+                                {...register(f as keyof RegisterFormValues, { required: true })}
+                                className={input(!!errors[f as keyof RegisterFormValues])}
+                            />
+                        </div>
+                    ))}
 
                     {/* COMMITTEE 2 */}
                     <div className="md:col-span-2">
                         <label className={label}>
-                            2nd Committee Preference{" "}
-                            <span className="text-red-500">*</span>
+                            2nd Committee Preference <span className="text-red-500">*</span>
                         </label>
                         <select
                             {...register("committee2", { required: true })}
@@ -307,37 +285,28 @@ export default function Register(): React.ReactElement {
                             <option value="">Select Committee</option>
                             <option>UNGA</option>
                             <option>UNHRC</option>
-                            <option>UNEP</option>
+                            <option>UNCSW</option>
                             <option>AIPPM</option>
                         </select>
                     </div>
 
-                    {["portfolio2_1", "portfolio2_2", "portfolio2_3"].map(
-                        (f) => (
-                            <div key={f}>
-                                <label className={label}>
-                                    Portfolio Preference{" "}
-                                    <span className="text-red-500">*</span>
-                                </label>
-                                <input
-                                    placeholder="Portfolio choice"
-                                    {...register(
-                                        f as keyof RegisterFormValues,
-                                        { required: true }
-                                    )}
-                                    className={input(
-                                        !!errors[f as keyof RegisterFormValues]
-                                    )}
-                                />
-                            </div>
-                        )
-                    )}
+                    {["portfolio2_1", "portfolio2_2", "portfolio2_3"].map((f) => (
+                        <div key={f}>
+                            <label className={label}>
+                                Portfolio Preference <span className="text-red-500">*</span>
+                            </label>
+                            <input
+                                placeholder="Portfolio choice"
+                                {...register(f as keyof RegisterFormValues, { required: true })}
+                                className={input(!!errors[f as keyof RegisterFormValues])}
+                            />
+                        </div>
+                    ))}
 
                     {/* EXPERIENCE */}
                     <div>
                         <label className={label}>
-                            Prior MUN Experience{" "}
-                            <span className="text-red-500">*</span>
+                            Prior MUN Experience <span className="text-red-500">*</span>
                         </label>
                         <input
                             placeholder="Briefly mention your experience"
@@ -348,17 +317,12 @@ export default function Register(): React.ReactElement {
 
                     <div>
                         <label className={label}>Referral ID (Optional)</label>
-                        <input
-                            placeholder="Optional"
-                            {...register("referral")}
-                            className={input()}
-                        />
+                        <input placeholder="Optional" {...register("referral")} className={input()} />
                     </div>
 
                     <div className="md:col-span-2">
                         <label className={label}>
-                            Transaction Number{" "}
-                            <span className="text-red-500">*</span>
+                            Transaction Number <span className="text-red-500">*</span>
                         </label>
                         <input
                             placeholder="Transaction reference"
@@ -367,34 +331,25 @@ export default function Register(): React.ReactElement {
                         />
                     </div>
 
-                    {/* QR SECTION - Image Style */}
+                    {/* QR SECTION */}
                     <div className="md:col-span-2 flex flex-col items-center justify-center border-2 border-dashed border-[#C7BEE6] rounded-2xl p-8 bg-gradient-to-br from-[#C7BEE6]/5 to-white">
                         <div className="mb-4">
                             <p className="text-lg font-semibold text-[#0d0c2d] text-center mb-2">
                                 Scan to Pay Delegate Fee
                             </p>
-                            <p className="text-sm text-[#0d0c2d]/60 text-center">
-                                UPI Payment - ₹1600
-                            </p>
+                            <p className="text-sm text-[#0d0c2d]/60 text-center">UPI Payment - ₹1600</p>
                         </div>
                         <div className="bg-white p-4 rounded-xl shadow-lg border border-[#C7BEE6]/30">
-                            <Image
-                                src="/QR.jpeg"
-                                alt="Payment QR Code"
-                                width={200}
-                                height={200}
-                                quality={100}
-                                className="rounded-lg"
-                            />
+                            <Image src="/QR.png" alt="Payment QR Code" width={200} height={200} quality={100} className="rounded-lg" />
                         </div>
                     </div>
 
-                    {/* FILE UPLOAD - Custom Style */}
+                    {/* FILE UPLOAD */}
                     <div className="md:col-span-2">
                         <label className={label}>
-                            Payment Screenshot{" "}
-                            <span className="text-red-500">*</span>
+                            Payment Screenshot <span className="text-red-500">*</span>
                         </label>
+
                         <div className="relative">
                             <input
                                 type="file"
@@ -403,11 +358,9 @@ export default function Register(): React.ReactElement {
                                 id="file-upload"
                                 {...register("paymentScreenshot", {
                                     required: "Payment screenshot is required",
-                                    onChange: (e) => {
-                                    handleFileChange(e); // call your custom function
-                                    },
+                                    onChange: (e) => handleFileChange(e),
                                 })}
-                                />
+                            />
 
                             <label
                                 htmlFor="file-upload"
@@ -418,36 +371,23 @@ export default function Register(): React.ReactElement {
                                 }`}
                             >
                                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg
-                                        className="w-12 h-12 mb-3 text-[#C7BEE6]"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                                        />
-                                    </svg>
                                     <p className="mb-2 text-sm text-[#0d0c2d] font-medium">
-                                        <span className="font-semibold text-[#C7BEE6]">
-                                            Click to upload
-                                        </span>{" "}
-                                        or drag and drop
+                                        <span className="font-semibold text-[#C7BEE6]">Click to upload</span> or drag and drop
                                     </p>
-                                    <p className="text-xs text-[#0d0c2d]/60">
-                                        PNG, JPG or JPEG (MAX. 10MB)
-                                    </p>
+                                    <p className="text-xs text-[#0d0c2d]/60">PNG, JPG or JPEG (MAX. 10MB)</p>
+
                                     {fileName && (
-                                        <p className="mt-2 text-sm text-[#0d0c2d] font-medium">
-                                            Selected: {fileName}
-                                        </p>
+                                        <p className="mt-2 text-sm text-[#0d0c2d] font-medium">Selected: {fileName}</p>
                                     )}
                                 </div>
                             </label>
                         </div>
+
+                        {preview && (
+                            <div className="mt-4 flex justify-center">
+                                <Image src={preview} alt="Preview" width={200} height={200} className="rounded-lg border" />
+                            </div>
+                        )}
                     </div>
 
                     {/* STATUS */}

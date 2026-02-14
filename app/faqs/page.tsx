@@ -42,7 +42,7 @@ const faqData: FAQItem[] = [
   {
     question: "What committees are being simulated at KIET MUN?",
     answer:
-      "UNGA-DISEC, UNHRC, UNEP, AIPPM, and the International Press.",
+      "UNGA-DISEC, UNHRC, UNCSW, AIPPM, and the International Press.",
   },
   {
     question: "Do I need prior MUN experience to participate?",
