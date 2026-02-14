@@ -16,14 +16,14 @@ interface Committee {
 const committees: Committee[] = [
     {
         name: "AIPPM",
-        image: "/committees/aippm.png",
+        image: "/committees/aipm.png",
         position: "top-0 left-10",
         description: "All India Political Parties Meet - Discussing national political agendas and policies",
         link: "",
     },
     {
         name: "UNCSW",
-        image: "/committees/uncsw.png",
+        image: "/committees/unw.png",
         position: "top-0 right-10",
         description: "United Nations Commission on the Status of Women - Promoting gender equality worldwide",
         link: "/committees/uncsw",

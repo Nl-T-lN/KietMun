@@ -172,9 +172,16 @@ export default function Register(): React.ReactElement {
                         </label>
                         <input
                             placeholder="Enter your full name"
-                            {...register("name", { required: true })}
+                            {...register("name", { required: "Name is required" })}
                             className={input(!!errors.name)}
                         />
+                          {errors.name && (
+    <p className="text-red-500 text-sm mt-1">
+      {errors.name.message}
+    </p>
+  )}
+
+  
                     </div>
 
                     <div>
@@ -185,6 +192,7 @@ export default function Register(): React.ReactElement {
                             <option>2nd</option>
                             <option>3rd</option>
                             <option>4th</option>
+                            <option>others</option>
                         </select>
                     </div>
 
@@ -193,10 +201,15 @@ export default function Register(): React.ReactElement {
                             Phone <span className="text-red-500">*</span>
                         </label>
                         <input
-                            placeholder="Enter phone number"
-                            {...register("phone", { required: true })}
+                            placeholder="Enter phone number" 
+                            {...register("phone", { required: "Phone no. is required" })}
                             className={input(!!errors.phone)}
                         />
+                          {errors.phone && (
+    <p className="text-red-500 text-sm mt-1">
+      {errors.phone.message}
+    </p>
+  )}
                     </div>
 
                     <div>
@@ -205,9 +218,14 @@ export default function Register(): React.ReactElement {
                         </label>
                         <input
                             placeholder="Institute name"
-                            {...register("institute", { required: true })}
+                            {...register("institute", { required: " Institute name is required" })}
                             className={input(!!errors.institute)}
                         />
+                         {errors.institute && (
+    <p className="text-red-500 text-sm mt-1">
+      {errors.institute.message}
+    </p>
+  )}
                     </div>
 
                     <div>
@@ -217,17 +235,22 @@ export default function Register(): React.ReactElement {
                         <input
                             type="email"
                             placeholder="Email address"
-                            {...register("email", { required: true })}
+                            {...register("email", { required: "email is required" })}
                             className={input(!!errors.email)}
                         />
+                         {errors.email && (
+    <p className="text-red-500 text-sm mt-1">
+      {errors.email.message}
+    </p>
+  )}
                     </div>
 
-                    <div>
+                    {/* <div>
                         <label className={label}>
                             Branch <span className="text-red-500">*</span>
                         </label>
                         <select
-                            {...register("branch", { required: true })}
+                            {...register("branch", { required: "Branch is required" })}
                             className={input(!!errors.branch)}
                         >
                             <option value="">Select Branch</option>
@@ -241,7 +264,33 @@ export default function Register(): React.ReactElement {
                             <option>ME</option>
                             <option>OTHERS</option>
                         </select>
-                    </div>
+                    </div> */}
+
+
+                    <div>
+  <label className={label}>
+    Branch <span className="text-red-500">*</span>
+  </label>
+
+  <input
+    placeholder="Enter your branch"
+    {...register("branch", {
+      required: "Branch is required",
+      minLength: {
+        value: 2,
+        message: "Branch name too short",
+      },
+    })}
+    className={input(!!errors.branch)}
+  />
+
+  {errors.branch && (
+    <p className="text-red-500 text-sm mt-1">
+      {errors.branch.message}
+    </p>
+  )}
+</div>
+
 
                     {/* COMMITTEE 1 */}
                     <div className="md:col-span-2">
@@ -249,7 +298,7 @@ export default function Register(): React.ReactElement {
                             1st Committee Preference <span className="text-red-500">*</span>
                         </label>
                         <select
-                            {...register("committee1", { required: true })}
+                            {...register("committee1", { required: "Committee is required" })}
                             className={input(!!errors.committee1)}
                         >
                             <option value="">Select Committee</option>
@@ -258,6 +307,11 @@ export default function Register(): React.ReactElement {
                             <option>UNCSW</option>
                             <option>AIPPM</option>
                         </select>
+                         {errors.committee1 && (
+    <p className="text-red-500 text-sm mt-1">
+      {errors.committee1.message}
+    </p>
+  )}
                     </div>
 
                     {["portfolio1_1", "portfolio1_2", "portfolio1_3"].map((f) => (
@@ -270,6 +324,7 @@ export default function Register(): React.ReactElement {
                                 {...register(f as keyof RegisterFormValues, { required: true })}
                                 className={input(!!errors[f as keyof RegisterFormValues])}
                             />
+
                         </div>
                     ))}
 
@@ -279,7 +334,7 @@ export default function Register(): React.ReactElement {
                             2nd Committee Preference <span className="text-red-500">*</span>
                         </label>
                         <select
-                            {...register("committee2", { required: true })}
+                            {...register("committee2", { required: "Committee is required" })}
                             className={input(!!errors.committee2)}
                         >
                             <option value="">Select Committee</option>
@@ -288,6 +343,11 @@ export default function Register(): React.ReactElement {
                             <option>UNCSW</option>
                             <option>AIPPM</option>
                         </select>
+                             {errors.committee2 && (
+    <p className="text-red-500 text-sm mt-1">
+      {errors.committee2.message}
+    </p>
+  )}
                     </div>
 
                     {["portfolio2_1", "portfolio2_2", "portfolio2_3"].map((f) => (
@@ -309,7 +369,7 @@ export default function Register(): React.ReactElement {
                             Prior MUN Experience <span className="text-red-500">*</span>
                         </label>
                         <input
-                            placeholder="Briefly mention your experience"
+                            placeholder="Mention your experience — if none, write N/A"
                             {...register("experience", { required: true })}
                             className={input(!!errors.experience)}
                         />
@@ -326,9 +386,14 @@ export default function Register(): React.ReactElement {
                         </label>
                         <input
                             placeholder="Transaction reference"
-                            {...register("transaction", { required: true })}
+                            {...register("transaction", { required: "Transaction no. is required" })}
                             className={input(!!errors.transaction)}
                         />
+                             {errors.transaction && (
+    <p className="text-red-500 text-sm mt-1">
+      {errors.transaction.message}
+    </p>
+  )}
                     </div>
 
                     {/* QR SECTION */}
