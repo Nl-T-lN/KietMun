@@ -63,7 +63,7 @@ const teamMembers: TeamMember[] = [
     },
       {
         img: "/vansh.jpeg",
-        name: "Vansh Gautam",
+        name: "Vansh Chaudhary",
         linkedin: "https://www.linkedin.com/in/vansh-chaudhary-936824327?utm_source=share_via&utm_content=profile&utm_medium=member_android",
         batch: "2024-2028",
     },
