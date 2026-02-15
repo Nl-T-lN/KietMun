@@ -57,7 +57,7 @@ export default function HeroContent(): React.ReactElement {
                 "
             >
                 {/* KIET + Logo side by side */}
-                <div className="flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-6 mb-10 sm:mb-[-8px]">
+                <div className="flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-6 mb-10 sm:mb-[-8px] lg:mt-[-10px]">
 
 
                     {/* Logo - Increased size */}
@@ -120,16 +120,16 @@ export default function HeroContent(): React.ReactElement {
                         },
                         className: "flex whitespace-nowrap"} as any)}
                     >
-                        <span className="text-sm sm:text-base md:text-lg tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
+                        <span className="text-sm sm:text-base md:text-lg tracking-[0.2em] sm:tracking-[0.3em] text-white/80 font-medium inline-block px-2">
                             DEBATE . DISCUSSION . DIPLOMACY
                         </span>
-                        <span className="text-sm sm:text-base md:text-lg tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
+                        <span className="text-sm sm:text-base md:text-lg tracking-[0.2em] sm:tracking-[0.3em] text-white/80 font-medium inline-block px-2">
                             DEBATE . DISCUSSION . DIPLOMACY
                         </span>
-                        <span className="text-sm sm:text-base md:text-lg tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
+                        <span className="text-sm sm:text-base md:text-lg tracking-[0.2em] sm:tracking-[0.3em] text-white/80 font-medium inline-block px-2">
                             DEBATE . DISCUSSION . DIPLOMACY
                         </span>
-                        <span className="text-sm sm:text-base md:text-lg tracking-[0.2em] sm:tracking-[0.3em] text-[#c7bee6]/80 font-medium inline-block px-2">
+                        <span className="text-sm sm:text-base md:text-lg tracking-[0.2em] sm:tracking-[0.3em] text-white/80 font-medium inline-block px-2">
                             DEBATE . DISCUSSION . DIPLOMACY
                         </span>
                         </motion.div>
@@ -146,13 +146,16 @@ export default function HeroContent(): React.ReactElement {
                         delay: 0.5,
                         ease: "easeOut",
                     }} as any)}
-                    className="mt-4 sm:mt-3 md:mt-4 text-4xl sm:text-6xl md:text-5xl lg:text-6xl font-bold text-[#c7bee6] leading-none drop-shadow-md"
+                   className="mt-4 sm:mt-3 md:mt-4 lg:mt-3
+text-xl sm:text-2xl md:text-3xl lg:text-4xl 
+font-bold text-[#c7bee6] leading-none drop-shadow-md"
+
                 >
-                    2026
+                 28-29 March'26
                 </motion.h2>
 
                 {/* NEW: Date 28-29 March */}
-                <motion.p
+                {/* <motion.p
                     {...({variants: fadeInUp,
                     initial: "hidden",
                     animate: "visible",
@@ -164,7 +167,7 @@ export default function HeroContent(): React.ReactElement {
                     className="mt-2 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white/90 tracking-wide drop-shadow-md"
                 >
                     28-29 March
-                </motion.p>
+                </motion.p> */}
 
                 {/* Register Button - Mobile Only */}
                 <motion.button

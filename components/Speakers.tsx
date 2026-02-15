@@ -107,11 +107,7 @@ export default function GuestSpeakers(): React.ReactElement {
                             <div className="absolute inset-0 bg-gradient-to-t from-[#0d0c2d]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                             
                             {/* Corner Accent */}
-                            <div className="absolute top-4 right-4 w-12 h-12 bg-[#c7bee6]/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110">
-                                <svg className="w-6 h-6 text-[#0d0c2d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                </svg>
-                            </div>
+                          
                         </div>
 
                         {/* Content Section */}
