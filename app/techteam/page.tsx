@@ -78,7 +78,7 @@ const freshmanMembers: string[] = [
     "Adarsh",
     "Shubhi",
     "Shristi",
-    "saurabh",
+    "Saurabh",
     "Yatharth",
 ];
 
@@ -182,7 +182,7 @@ export default function Team(): React.ReactElement {
 
             <div className="max-w-5xl mx-auto mt-24 text-center">
                 <h2 className="text-2xl md:text-3xl font-bold text-[#0d0c2d] mb-10">
-                    Freshman
+                    Freshmen
                 </h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">

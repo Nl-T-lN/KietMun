@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Image from "next/image";
+import toast, { Toaster } from "react-hot-toast";
 
 /* ================= TYPES ================= */
 
@@ -30,15 +31,9 @@ interface RegisterFormValues {
     paymentScreenshot: FileList;
 }
 
-type Status =
-    | { type: "success"; message: string }
-    | { type: "error"; message: string }
-    | null;
-
 /* ================= COMPONENT ================= */
 
 export default function Register(): React.ReactElement {
-    const [status, setStatus] = useState<Status>(null);
     const [loading, setLoading] = useState(false);
     const [fileName, setFileName] = useState<string>("");
     const [preview, setPreview] = useState<string | null>(null);
@@ -54,46 +49,34 @@ export default function Register(): React.ReactElement {
 
     const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
         setLoading(true);
-        setStatus(null);
 
         try {
             const file = data.paymentScreenshot?.[0];
 
             if (!file) {
-                setStatus({
-                    type: "error",
-                    message: "Payment screenshot is required.",
-                });
+                toast.error("Payment screenshot is required.");
                 setLoading(false);
                 return;
             }
 
             if (file.size > 10 * 1024 * 1024) {
-                setStatus({
-                    type: "error",
-                    message: "File size must be less than 10MB.",
-                });
+                toast.error("File size must be less than 10MB.");
                 setLoading(false);
                 return;
             }
 
             if (!["image/png", "image/jpeg", "image/jpg"].includes(file.type)) {
-                setStatus({
-                    type: "error",
-                    message: "Only PNG or JPG images allowed.",
-                });
+                toast.error("Only PNG or JPG images allowed.");
                 setLoading(false);
                 return;
             }
 
             const formData = new FormData();
-
             Object.entries(data).forEach(([key, value]) => {
                 if (key !== "paymentScreenshot") {
                     formData.append(key, value as string);
                 }
             });
-
             formData.append("paymentScreenshot", file);
 
             const response = await fetch(
@@ -107,18 +90,17 @@ export default function Register(): React.ReactElement {
                 throw new Error(result.error || "Submission failed");
             }
 
-            setStatus({
-                type: "success",
-                message: "Registration successful. We will contact you shortly.",
+            // ✅ Success — show toast, reset form + file state
+            toast.success("Registration successful! We will contact you shortly.", {
+                duration: 5000,
             });
 
             reset();
-            // keep filename + preview visible after success
+            setFileName("");
+            setPreview(null);
+
         } catch (error: any) {
-            setStatus({
-                type: "error",
-                message: error?.message || "Registration failed. Please try again.",
-            });
+            toast.error(error?.message || "Registration failed. Please try again.");
         } finally {
             setLoading(false);
         }
@@ -151,335 +133,253 @@ export default function Register(): React.ReactElement {
     /* ================= UI ================= */
 
     return (
-        <section className="bg-white py-28 px-6 flex justify-center">
-            <div className="max-w-5xl w-full bg-white border border-[#C7BEE6]/40 rounded-xl p-10 shadow-md">
-                <h1 className="text-4xl md:text-5xl font-extrabold text-[#0d0c2d] text-center mb-4">
-                    Delegate Registration
-                </h1>
+        <>
+            {/* 🔔 Toast container — add this once at top level */}
+            <Toaster
+                position="top-center"
+                toastOptions={{
+                    style: {
+                        fontWeight: "600",
+                        fontSize: "15px",
+                        borderRadius: "12px",
+                        padding: "14px 20px",
+                    },
+                    success: { duration: 5000 },
+                    error: { duration: 4000 },
+                }}
+            />
 
-                <p className="text-center text-[#0d0c2d]/70 mb-10">
-                    Delegate Fee: ₹1600
-                </p>
+            <section className="bg-white py-28 px-6 flex justify-center">
+                <div className="max-w-5xl w-full bg-white border border-[#C7BEE6]/40 rounded-xl p-10 shadow-md">
+                    <h1 className="text-4xl md:text-5xl font-extrabold text-[#0d0c2d] text-center mb-4">
+                        Delegate Registration
+                    </h1>
 
-                <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
-                >
-                    {/* BASIC INFO */}
-                    <div>
-                        <label className={label}>
-                            Name <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                            placeholder="Enter your full name"
-                            {...register("name", { required: "Name is required" })}
-                            className={input(!!errors.name)}
-                        />
-                          {errors.name && (
-    <p className="text-red-500 text-sm mt-1">
-      {errors.name.message}
-    </p>
-  )}
+                    <p className="text-center text-[#0d0c2d]/70 mb-10">
+                        Delegate Fee: ₹1600
+                    </p>
 
-  
-                    </div>
-
-                    <div>
-                        <label className={label}>Year <span className="text-red-500">*</span></label>
-                        <select {...register("year")} className={input()}>
-                            <option value="">Select Year</option>
-                            <option>1st</option>
-                            <option>2nd</option>
-                            <option>3rd</option>
-                            <option>4th</option>
-                            <option>others</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label className={label}>
-                            Phone <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                            placeholder="Enter phone number" 
-                            {...register("phone", { required: "Phone no. is required" })}
-                            className={input(!!errors.phone)}
-                        />
-                          {errors.phone && (
-    <p className="text-red-500 text-sm mt-1">
-      {errors.phone.message}
-    </p>
-  )}
-                    </div>
-
-                    <div>
-                        <label className={label}>
-                            Institute <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                            placeholder="Institute name"
-                            {...register("institute", { required: " Institute name is required" })}
-                            className={input(!!errors.institute)}
-                        />
-                         {errors.institute && (
-    <p className="text-red-500 text-sm mt-1">
-      {errors.institute.message}
-    </p>
-  )}
-                    </div>
-
-                    <div>
-                        <label className={label}>
-                            Email <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                            type="email"
-                            placeholder="Email address"
-                            {...register("email", { required: "email is required" })}
-                            className={input(!!errors.email)}
-                        />
-                         {errors.email && (
-    <p className="text-red-500 text-sm mt-1">
-      {errors.email.message}
-    </p>
-  )}
-                    </div>
-
-                    {/* <div>
-                        <label className={label}>
-                            Branch <span className="text-red-500">*</span>
-                        </label>
-                        <select
-                            {...register("branch", { required: "Branch is required" })}
-                            className={input(!!errors.branch)}
-                        >
-                            <option value="">Select Branch</option>
-                            <option>CSE</option>
-                            <option>CS</option>
-                            <option>CS IT</option>
-                            <option>CSE AI</option>
-                            <option>AIML</option>
-                            <option>IT</option>
-                            <option>ECE</option>
-                            <option>ME</option>
-                            <option>OTHERS</option>
-                        </select>
-                    </div> */}
-
-
-                    <div>
-  <label className={label}>
-    Branch <span className="text-red-500">*</span>
-  </label>
-
-  <input
-    placeholder="Enter your branch"
-    {...register("branch", {
-      required: "Branch is required",
-      minLength: {
-        value: 2,
-        message: "Branch name too short",
-      },
-    })}
-    className={input(!!errors.branch)}
-  />
-
-  {errors.branch && (
-    <p className="text-red-500 text-sm mt-1">
-      {errors.branch.message}
-    </p>
-  )}
-</div>
-
-
-                    {/* COMMITTEE 1 */}
-                    <div className="md:col-span-2">
-                        <label className={label}>
-                            1st Committee Preference <span className="text-red-500">*</span>
-                        </label>
-                        <select
-                            {...register("committee1", { required: "Committee is required" })}
-                            className={input(!!errors.committee1)}
-                        >
-                            <option value="">Select Committee</option>
-                            <option>UNGA</option>
-                            <option>UNHRC</option>
-                            <option>UNCSW</option>
-                            <option>AIPPM</option>
-                        </select>
-                         {errors.committee1 && (
-    <p className="text-red-500 text-sm mt-1">
-      {errors.committee1.message}
-    </p>
-  )}
-                    </div>
-
-                    {["portfolio1_1", "portfolio1_2", "portfolio1_3"].map((f) => (
-                        <div key={f}>
-                            <label className={label}>
-                                Portfolio Preference <span className="text-red-500">*</span>
-                            </label>
+                    <form
+                        onSubmit={handleSubmit(onSubmit)}
+                        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                    >
+                        {/* BASIC INFO */}
+                        <div>
+                            <label className={label}>Name <span className="text-red-500">*</span></label>
                             <input
-                                placeholder="Portfolio choice"
-                                {...register(f as keyof RegisterFormValues, { required: true })}
-                                className={input(!!errors[f as keyof RegisterFormValues])}
+                                placeholder="Enter your full name"
+                                {...register("name", { required: "Name is required" })}
+                                className={input(!!errors.name)}
                             />
-
+                            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
                         </div>
-                    ))}
 
-                    {/* COMMITTEE 2 */}
-                    <div className="md:col-span-2">
-                        <label className={label}>
-                            2nd Committee Preference <span className="text-red-500">*</span>
-                        </label>
-                        <select
-                            {...register("committee2", { required: "Committee is required" })}
-                            className={input(!!errors.committee2)}
-                        >
-                            <option value="">Select Committee</option>
-                            <option>UNGA</option>
-                            <option>UNHRC</option>
-                            <option>UNCSW</option>
-                            <option>AIPPM</option>
-                        </select>
-                             {errors.committee2 && (
-    <p className="text-red-500 text-sm mt-1">
-      {errors.committee2.message}
-    </p>
-  )}
-                    </div>
+                        <div>
+                            <label className={label}>Year <span className="text-red-500">*</span></label>
+                            <select {...register("year")} className={input()}>
+                                <option value="">Select Year</option>
+                                <option>1st</option>
+                                <option>2nd</option>
+                                <option>3rd</option>
+                                <option>4th</option>
+                                <option>others</option>
+                            </select>
+                        </div>
 
-                    {["portfolio2_1", "portfolio2_2", "portfolio2_3"].map((f) => (
-                        <div key={f}>
-                            <label className={label}>
-                                Portfolio Preference <span className="text-red-500">*</span>
-                            </label>
+                        <div>
+                            <label className={label}>Phone <span className="text-red-500">*</span></label>
                             <input
-                                placeholder="Portfolio choice"
-                                {...register(f as keyof RegisterFormValues, { required: true })}
-                                className={input(!!errors[f as keyof RegisterFormValues])}
+                                placeholder="Enter phone number"
+                                {...register("phone", { required: "Phone no. is required" })}
+                                className={input(!!errors.phone)}
                             />
+                            {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>}
                         </div>
-                    ))}
 
-                    {/* EXPERIENCE */}
-                    <div>
-                        <label className={label}>
-                            Prior MUN Experience <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                            placeholder="Mention your experience — if none, write N/A"
-                            {...register("experience", { required: true })}
-                            className={input(!!errors.experience)}
-                        />
-                    </div>
-
-                    <div>
-                        <label className={label}>Referral ID (Optional)</label>
-                        <input placeholder="Optional" {...register("referral")} className={input()} />
-                    </div>
-
-                    <div className="md:col-span-2">
-                        <label className={label}>
-                            Transaction Number <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                            placeholder="Transaction reference"
-                            {...register("transaction", { required: "Transaction no. is required" })}
-                            className={input(!!errors.transaction)}
-                        />
-                             {errors.transaction && (
-    <p className="text-red-500 text-sm mt-1">
-      {errors.transaction.message}
-    </p>
-  )}
-                    </div>
-
-                    {/* QR SECTION */}
-                    <div className="md:col-span-2 flex flex-col items-center justify-center border-2 border-dashed border-[#C7BEE6] rounded-2xl p-8 bg-gradient-to-br from-[#C7BEE6]/5 to-white">
-                        <div className="mb-4">
-                            <p className="text-lg font-semibold text-[#0d0c2d] text-center mb-2">
-                                Scan to Pay Delegate Fee
-                            </p>
-                            <p className="text-sm text-[#0d0c2d]/60 text-center">UPI Payment - ₹1600</p>
-                        </div>
-                        <div className="bg-white p-4 rounded-xl shadow-lg border border-[#C7BEE6]/30">
-                            <Image src="/QR.png" alt="Payment QR Code" width={200} height={200} quality={100} className="rounded-lg" />
-                        </div>
-                    </div>
-
-                    {/* FILE UPLOAD */}
-                    <div className="md:col-span-2">
-                        <label className={label}>
-                            Payment Screenshot <span className="text-red-500">*</span>
-                        </label>
-
-                        <div className="relative">
+                        <div>
+                            <label className={label}>Institute <span className="text-red-500">*</span></label>
                             <input
-                                type="file"
-                                accept="image/png,image/jpeg,image/jpg"
-                                className="hidden"
-                                id="file-upload"
-                                {...register("paymentScreenshot", {
-                                    required: "Payment screenshot is required",
-                                    onChange: (e) => handleFileChange(e),
+                                placeholder="Institute name"
+                                {...register("institute", { required: "Institute name is required" })}
+                                className={input(!!errors.institute)}
+                            />
+                            {errors.institute && <p className="text-red-500 text-sm mt-1">{errors.institute.message}</p>}
+                        </div>
+
+                        <div>
+                            <label className={label}>Email <span className="text-red-500">*</span></label>
+                            <input
+                                type="email"
+                                placeholder="Email address"
+                                {...register("email", { required: "Email is required" })}
+                                className={input(!!errors.email)}
+                            />
+                            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+                        </div>
+
+                        <div>
+                            <label className={label}>Branch <span className="text-red-500">*</span></label>
+                            <input
+                                placeholder="Enter your branch"
+                                {...register("branch", {
+                                    required: "Branch is required",
+                                    minLength: { value: 2, message: "Branch name too short" },
                                 })}
+                                className={input(!!errors.branch)}
                             />
+                            {errors.branch && <p className="text-red-500 text-sm mt-1">{errors.branch.message}</p>}
+                        </div>
 
-                            <label
-                                htmlFor="file-upload"
-                                className={`flex flex-col items-center justify-center w-full h-40 border-2 border-dashed rounded-xl cursor-pointer transition-all ${
-                                    errors.paymentScreenshot
-                                        ? "border-red-500 bg-red-50"
-                                        : "border-[#C7BEE6] bg-[#C7BEE6]/5 hover:bg-[#C7BEE6]/10"
-                                }`}
+                        {/* COMMITTEE 1 */}
+                        <div className="md:col-span-2">
+                            <label className={label}>1st Committee Preference <span className="text-red-500">*</span></label>
+                            <select
+                                {...register("committee1", { required: "Committee is required" })}
+                                className={input(!!errors.committee1)}
                             >
-                                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <p className="mb-2 text-sm text-[#0d0c2d] font-medium">
-                                        <span className="font-semibold text-[#C7BEE6]">Click to upload</span> or drag and drop
-                                    </p>
-                                    <p className="text-xs text-[#0d0c2d]/60">PNG, JPG or JPEG (MAX. 10MB)</p>
-
-                                    {fileName && (
-                                        <p className="mt-2 text-sm text-[#0d0c2d] font-medium">Selected: {fileName}</p>
-                                    )}
-                                </div>
-                            </label>
+                                <option value="">Select Committee</option>
+                                <option>UNGA</option>
+                                <option>UNHRC</option>
+                                <option>UNCSW</option>
+                                <option>AIPPM</option>
+                            </select>
+                            {errors.committee1 && <p className="text-red-500 text-sm mt-1">{errors.committee1.message}</p>}
                         </div>
 
-                        {preview && (
-                            <div className="mt-4 flex justify-center">
-                                <Image src={preview} alt="Preview" width={200} height={200} className="rounded-lg border" />
+                        {["portfolio1_1", "portfolio1_2", "portfolio1_3"].map((f, i) => (
+                            <div key={f}>
+                                <label className={label}>
+                                    Portfolio Preference {i + 1} <span className="text-red-500">*</span>
+                                </label>
+                                <input
+                                    placeholder="Portfolio choice"
+                                    {...register(f as keyof RegisterFormValues, { required: true })}
+                                    className={input(!!errors[f as keyof RegisterFormValues])}
+                                />
                             </div>
-                        )}
-                    </div>
+                        ))}
 
-                    {/* STATUS */}
-                    {status && (
-                        <div
-                            className={`md:col-span-2 text-center font-semibold text-lg p-4 rounded-lg ${
-                                status.type === "success"
-                                    ? "bg-green-50 text-green-700 border border-green-200"
-                                    : "bg-red-50 text-red-700 border border-red-200"
-                            }`}
-                        >
-                            {status.message}
+                        {/* COMMITTEE 2 */}
+                        <div className="md:col-span-2">
+                            <label className={label}>2nd Committee Preference <span className="text-red-500">*</span></label>
+                            <select
+                                {...register("committee2", { required: "Committee is required" })}
+                                className={input(!!errors.committee2)}
+                            >
+                                <option value="">Select Committee</option>
+                                <option>UNGA</option>
+                                <option>UNHRC</option>
+                                <option>UNCSW</option>
+                                <option>AIPPM</option>
+                            </select>
+                            {errors.committee2 && <p className="text-red-500 text-sm mt-1">{errors.committee2.message}</p>}
                         </div>
-                    )}
 
-                    {/* SUBMIT */}
-                    <div className="md:col-span-2 flex justify-center mt-6">
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className="bg-[#0d0c2d] text-white px-12 py-4 rounded-lg font-semibold text-lg hover:bg-[#0d0c2d]/90 transition-all hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
-                        >
-                            {loading ? "Submitting..." : "Submit "}
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </section>
+                        {["portfolio2_1", "portfolio2_2", "portfolio2_3"].map((f, i) => (
+                            <div key={f}>
+                                <label className={label}>
+                                    Portfolio Preference {i + 1} <span className="text-red-500">*</span>
+                                </label>
+                                <input
+                                    placeholder="Portfolio choice"
+                                    {...register(f as keyof RegisterFormValues, { required: true })}
+                                    className={input(!!errors[f as keyof RegisterFormValues])}
+                                />
+                            </div>
+                        ))}
+
+                        {/* EXPERIENCE */}
+                        <div>
+                            <label className={label}>Prior MUN Experience <span className="text-red-500">*</span></label>
+                            <input
+                                placeholder="Mention your experience — if none, write N/A"
+                                {...register("experience", { required: true })}
+                                className={input(!!errors.experience)}
+                            />
+                        </div>
+
+                        <div>
+                            <label className={label}>Referral ID (Optional)</label>
+                            <input placeholder="Optional" {...register("referral")} className={input()} />
+                        </div>
+
+                        <div className="md:col-span-2">
+                            <label className={label}>Transaction Id <span className="text-red-500">*</span></label>
+                            <input
+                                placeholder="Transaction reference"
+                                {...register("transaction", { required: "Transaction id is required" })}
+                                className={input(!!errors.transaction)}
+                            />
+                            {errors.transaction && <p className="text-red-500 text-sm mt-1">{errors.transaction.message}</p>}
+                        </div>
+
+                        {/* QR SECTION */}
+                        <div className="md:col-span-2 flex flex-col items-center justify-center border-2 border-dashed border-[#C7BEE6] rounded-2xl p-8 bg-gradient-to-br from-[#C7BEE6]/5 to-white">
+                            <div className="mb-4">
+                                <p className="text-lg font-semibold text-[#0d0c2d] text-center mb-2">Scan to Pay Delegate Fee</p>
+                                <p className="text-sm text-[#0d0c2d]/60 text-center">UPI Payment - ₹1600</p>
+                            </div>
+                            <div className="bg-white p-4 rounded-xl shadow-lg border border-[#C7BEE6]/30">
+                                <Image src="/QR.png" alt="Payment QR Code" width={200} height={200} quality={100} className="rounded-lg" />
+                            </div>
+                        </div>
+
+                        {/* FILE UPLOAD */}
+                        <div className="md:col-span-2">
+                            <label className={label}>Payment Screenshot <span className="text-red-500">*</span></label>
+
+                            <div className="relative">
+                                <input
+                                    type="file"
+                                    accept="image/png,image/jpeg,image/jpg"
+                                    className="hidden"
+                                    id="file-upload"
+                                    {...register("paymentScreenshot", {
+                                        required: "Payment screenshot is required",
+                                        onChange: (e) => handleFileChange(e),
+                                    })}
+                                />
+
+                                <label
+                                    htmlFor="file-upload"
+                                    className={`flex flex-col items-center justify-center w-full h-40 border-2 border-dashed rounded-xl cursor-pointer transition-all ${
+                                        errors.paymentScreenshot
+                                            ? "border-red-500 bg-red-50"
+                                            : "border-[#C7BEE6] bg-[#C7BEE6]/5 hover:bg-[#C7BEE6]/10"
+                                    }`}
+                                >
+                                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                        <p className="mb-2 text-sm text-[#0d0c2d] font-medium">
+                                            <span className="font-semibold text-[#C7BEE6]">Click to upload</span> or drag and drop
+                                        </p>
+                                        <p className="text-xs text-[#0d0c2d]/60">PNG, JPG or JPEG (MAX. 10MB)</p>
+                                        {fileName && (
+                                            <p className="mt-2 text-sm text-[#0d0c2d] font-medium">Selected: {fileName}</p>
+                                        )}
+                                    </div>
+                                </label>
+                            </div>
+
+                            {preview && (
+                                <div className="mt-4 flex justify-center">
+                                    <Image src={preview} alt="Preview" width={200} height={200} className="rounded-lg border" />
+                                </div>
+                            )}
+                        </div>
+
+                        {/* SUBMIT */}
+                        <div className="md:col-span-2 flex justify-center mt-6">
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="bg-[#0d0c2d] text-white px-12 py-4 rounded-lg font-semibold text-lg hover:bg-[#0d0c2d]/90 transition-all hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
+                            >
+                                {loading ? "Submitting..." : "Submit"}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </>
     );
 }

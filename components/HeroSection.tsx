@@ -10,203 +10,147 @@ export default function HeroContent(): React.ReactElement {
 
     const fadeInUp: Variants = {
         hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0 }
+        visible: { opacity: 1, y: 0 },
     };
 
     const fadeIn: Variants = {
         hidden: { opacity: 0 },
-        visible: { opacity: 1 }
+        visible: { opacity: 1 },
     };
 
     return (
-        <section className="relative min-h-[100dvh] sm:min-h-screen overflow-hidden">
-            {/* Navbar */}
+        <section
+            className="relative w-full overflow-hidden"
+            style={{ height: "100vh" }}
+        >
             <Navbar />
 
-            {/* Background Images */}
-            <Image
-                src="/test.svg"
-                alt="Background Pattern"
-                fill
-                priority
-                className="object-cover -z-20"
-            />
-            <Image
-                src="/bg.jpeg"
-                alt="Background Overlay"
-                fill
-                priority
-                className="object-cover -z-30"
-            />
+            {/* Background layers */}
+            <Image src="/test.svg" alt="Background Pattern" fill priority className="object-cover -z-20" />
+            <Image src="/bg.jpeg" alt="Background Overlay" fill priority className="object-cover -z-30" />
 
             {/* Gradient overlays */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0d0c2d]/60 via-transparent to-[#0d0c2d]/80 -z-10 pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0d0c2d]/30 to-transparent -z-10 pointer-events-none" />
+            <div className="absolute inset-0 -z-10 pointer-events-none bg-gradient-to-b from-[#0d0c2d]/60 via-transparent to-[#0d0c2d]/95" />
+            <div className="absolute inset-0 -z-10 pointer-events-none bg-gradient-to-r from-[#0d0c2d]/30 to-transparent" />
 
- {/* Hero Content */}
+            {/* ── Hero Text ──
+                - paddingTop  : clears navbar
+                - paddingBottom: = building height (55vh) so text sits above it  */}
             <div
-                className="
-                    relative z-10
-                    min-h-[100dvh] sm:min-h-screen
-                    flex flex-col
-                    items-center
-                    text-center
-                    px-4 sm:px-10
-                    pt-24 sm:pt-24 md:pt-28 lg:pt-32
-                    text-white
-                "
+                className="relative z-10 flex flex-col items-center text-center text-white px-4"
+                style={{
+                    paddingTop: "clamp(80px, 9vh, 120px)",
+                    paddingBottom: "55vh",
+                }}
             >
-                {/* KIET + Logo side by side */}
-                <div className="flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-6 mb-10 sm:mb-[-8px] lg:mt-[-10px]">
-
-
-                    {/* Logo - Increased size */}
-                        <div className="relative w-[100px] h-[100px] sm:w-[110px] sm:h-[110px] md:w-[140px] md:h-[140px] lg:w-[150px] lg:h-[150px] flex-shrink-0">
-                        <Image
-                            src="/log.png"
-                            alt="KIET MUN Logo"
-                            fill
-                            priority
-                            className="object-contain drop-shadow-2xl"
-                        />
+                {/* Logo + KIET */}
+                <div className="flex flex-row items-center justify-center gap-3 md:gap-5 mt-5 mb-3">
+                    <div
+                        className="relative flex-shrink-0"
+                        style={{
+                            width:  "clamp(60px, 8vw, 130px)",
+                            height: "clamp(60px, 8vw, 130px)",
+                        }}
+                    >
+                        <Image src="/log.png" alt="KIET MUN Logo" fill priority className="object-contain drop-shadow-2xl" />
                     </div>
 
-                    {/* KIET text */}
                     <motion.span
-                        {...({variants: fadeInUp,
-                        initial: "hidden",
-                        animate: "visible",
-                        transition: { duration: 0.6, ease: "easeOut" }} as any)}
-                        className="text-3xl sm:text-3xl md:text-4xl lg:text-6xl tracking-[0.25em] sm:tracking-[0.3em] text-[#c7bee6] font-bold uppercase"
+                        variants={fadeInUp}
+                        initial="hidden"
+                        animate="visible"
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                        style={{ fontSize: "clamp(24px, 4vw, 66px)", letterSpacing: "0.28em" }}
+                        className="text-[#c7bee6] font-bold uppercase"
                     >
                         KIET
                     </motion.span>
                 </div>
 
-                {/* Title + Marquee Group */}
-                <div className="flex flex-col items-center gap-1 sm:gap-0">
-                    {/* Title Container - INCREASED SIZE */}
-                    <div className="relative flex flex-row items-center justify-center">
-                        <motion.h1
-                            {...({variants: fadeInUp,
-                            initial: "hidden",
-                            animate: "visible",
-                            transition: {
-                                duration: 0.7,
-                                delay: 0.2,
-                                ease: "easeOut",
-                            }} as any)}
-                            className="relative z-10 text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight sm:tracking-wide leading-tight text-white drop-shadow-lg"
-                        >
-                            MODEL UNITED NATIONS 8.0
-                        </motion.h1>
-                    </div>
-
-                    {/* Marquee Tagline - INCREASED SIZE */}
-                    <motion.div
-                        {...({variants: fadeIn,
-                        initial: "hidden",
-                        animate: "visible",
-                        transition: { duration: 0.6, delay: 0.4 }} as any)}
-                        className="sm:mt-3 w-full max-w-[280px] sm:max-w-[400px] md:max-w-[500px] overflow-hidden relative"
-                    >
-                    <motion.div
-                        {...({animate: { x: ["-100%", "0%"] },
-                        transition: {
-                            duration: 15,
-                            repeat: Infinity,
-                            ease: "linear",
-                            repeatType: "loop"
-                        },
-                        className: "flex whitespace-nowrap"} as any)}
-                    >
-                        <span className="text-sm sm:text-base md:text-lg tracking-[0.2em] sm:tracking-[0.3em] text-white/80 font-medium inline-block px-2">
-                            DEBATE . DISCUSSION . DIPLOMACY
-                        </span>
-                        <span className="text-sm sm:text-base md:text-lg tracking-[0.2em] sm:tracking-[0.3em] text-white/80 font-medium inline-block px-2">
-                            DEBATE . DISCUSSION . DIPLOMACY
-                        </span>
-                        <span className="text-sm sm:text-base md:text-lg tracking-[0.2em] sm:tracking-[0.3em] text-white/80 font-medium inline-block px-2">
-                            DEBATE . DISCUSSION . DIPLOMACY
-                        </span>
-                        <span className="text-sm sm:text-base md:text-lg tracking-[0.2em] sm:tracking-[0.3em] text-white/80 font-medium inline-block px-2">
-                            DEBATE . DISCUSSION . DIPLOMACY
-                        </span>
-                        </motion.div>
-                    </motion.div>
-                </div>
-
-                {/* Year */}
-                <motion.h2
-                    {...({variants: fadeInUp,
-                    initial: "hidden",
-                    animate: "visible",
-                    transition: {
-                        duration: 0.6,
-                        delay: 0.5,
-                        ease: "easeOut",
-                    }} as any)}
-                   className="mt-4 sm:mt-3 md:mt-4 lg:mt-3
-text-xl sm:text-2xl md:text-3xl lg:text-4xl 
-font-bold text-[#c7bee6] leading-none drop-shadow-md"
-
+                {/* Title — nowrap so it never breaks into 2 lines */}
+                <motion.h1
+                    variants={fadeInUp}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+                    style={{
+                        fontSize: "clamp(18px, 4.8vw, 78px)",
+                        letterSpacing: "0.03em",
+                        lineHeight: 1.1,
+                        whiteSpace: "nowrap",
+                    }}
+                    className="font-extrabold text-white drop-shadow-lg"
                 >
-                 28-29 March'26
+                    MODEL UNITED NATIONS 8.0
+                </motion.h1>
+
+                {/* Marquee */}
+                <motion.div
+                    variants={fadeIn}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                    className="mt-2 overflow-hidden w-full"
+                    style={{ maxWidth: "clamp(240px, 46vw, 560px)" }}
+                >
+                    <motion.div
+                        animate={{ x: ["-100%", "60%"] }}
+                        transition={{ duration: 19, repeat: Infinity, ease: "linear", repeatType: "loop" }}
+                        className="flex whitespace-nowrap"
+                    >
+                        {[...Array(4)].map((_, i) => (
+                            <span
+                                key={i}
+                                style={{ fontSize: "clamp(10px, 1.1vw, 16px)", letterSpacing: "0.28em" }}
+                                className="text-white/80 font-medium inline-block px-4 uppercase"
+                            >
+                                DEBATE . DISCUSSION . DIPLOMACY 
+                            </span>
+                        ))}
+                    </motion.div>
+                </motion.div>
+
+                {/* Date */}
+                <motion.h2
+                    variants={fadeInUp}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
+                    style={{ fontSize: "clamp(15px, 2.4vw, 38px)" }}
+                    className="mt-2 font-bold text-[#c7bee6] drop-shadow-md"
+                >
+                    28-29 March&apos;26
                 </motion.h2>
 
-                {/* NEW: Date 28-29 March */}
-                {/* <motion.p
-                    {...({variants: fadeInUp,
-                    initial: "hidden",
-                    animate: "visible",
-                    transition: {
-                        duration: 0.6,
-                        delay: 0.6,
-                        ease: "easeOut",
-                    }} as any)}
-                    className="mt-2 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white/90 tracking-wide drop-shadow-md"
-                >
-                    28-29 March
-                </motion.p> */}
-
-                {/* Register Button - Mobile Only */}
+                {/* Register — mobile only */}
                 <motion.button
-                    {...({variants: fadeInUp,
-                    initial: "hidden",
-                    animate: "visible",
-                    transition: {
-                        duration: 0.6,
-                        delay: 0.7,
-                        ease: "easeOut",
-                    }} as any)}
+                    variants={fadeInUp}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
                     onClick={() => router.push("/register")}
-                    className="mt-11 md:hidden rounded-full bg-white px-8 py-3 text-base font-bold text-[#0d0c2d] hover:bg-[#c7bee6] transition-colors duration-300 shadow-lg z-30"
+                    className="mt-6 md:hidden rounded-full bg-white px-8 py-3 text-sm font-bold text-[#0d0c2d] hover:bg-[#c7bee6] transition-colors duration-300 shadow-lg"
                 >
                     Register
                 </motion.button>
             </div>
 
-            {/* Bottom Building Image */}
+           
             <div
-                className="
-                    absolute bottom-0 left-1/2
-                    -translate-x-1/2
-                    z-20
-                    w-[110%] sm:w-[95%] max-w-[1100px]
-                    h-[500px] sm:h-[280px]
-                    md:h-[950px]
-                    lg:h-[700px]
-                    pointer-events-none
-                "
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 pointer-events-none"
+                style={{
+                    width: "min(140%, 1400px)",
+                    height: "101vh",
+                }}
             >
                 <Image
                     src="/builld.png"
                     alt="KIET Building"
                     fill
                     priority
-                    className="object-contain object-bottom scale-[1.25] sm:scale-100 origin-bottom"
+                    className="object-contain object-bottom"
                     style={{
-                        filter: "grayscale(100%) brightness(0.85) contrast(1.1)"
+                        filter: "grayscale(100%) brightness(0.85) contrast(1.1)",
                     }}
                 />
             </div>
