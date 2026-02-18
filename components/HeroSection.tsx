@@ -110,7 +110,7 @@ export default function HeroContent(): React.ReactElement {
                     </motion.div>
                 </motion.div>
 
-                {/* Date */}
+                {/* Datee */}
                 <motion.h2
                     variants={fadeInUp}
                     initial="hidden"
